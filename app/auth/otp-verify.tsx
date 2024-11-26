@@ -2,15 +2,14 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useForm, Controller } from "react-hook-form"
 import { FormControl, FormField, FormInput, FormLabel } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import { Container } from '@/components/ui/container';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '@/lib/supabase';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 
-export default function LoginScreen() {
+export default function OPTVerifyScreen() {
   const { bottom } = useSafeAreaInsets();
+  const { phoneNo } = useLocalSearchParams();
 
-  const router = useRouter();
 
   const {
     control,
@@ -18,44 +17,42 @@ export default function LoginScreen() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      phoneno: "",
+      otp: "",
     },
   })
 
   const onSubmit = async (data: any) => {
-    const phoneNo = data.phoneno;
+    const otp = data.otp;
 
-    const { data: otpData, error } = await supabase.auth.signInWithOtp({
-      phone: '+91' + phoneNo,
+    console.log("PO", phoneNo);
+
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.verifyOtp({
+      phone: String(phoneNo),
+      token: otp,
+      type: 'sms',
     })
 
-    router.navigate({
-      pathname: '/auth/otp-verify',
-      params: { phoneNo }
-    })
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>LOGIN</Text>
-
       <View style={[formStyles.container, { paddingBottom: bottom }]}>
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <FormField>
-              <FormLabel>Phone no (+91)</FormLabel>
+              <FormLabel>OTP</FormLabel>
               <FormControl style={formStyles.control}>
-                <Container style={{ height: '100%' }}>
-                  <Text style={{ fontFamily: 'Itim' }}>+91</Text>
-                </Container>
                 <FormInput
                   style={{ flex: 1 }}
-                  placeholder="7207159628"
-                  inputMode='tel'
-                  keyboardType='phone-pad'
-                  maxLength={10}
-                  autoComplete='tel'
+                  placeholder="123456"
+                  inputMode="numeric"
+                  keyboardType='number-pad'
+                  maxLength={6}
+                  autoComplete='one-time-code'
 
                   onBlur={onBlur}
                   onChangeText={onChange}
@@ -64,12 +61,12 @@ export default function LoginScreen() {
               </FormControl>
             </FormField>
           )}
-          name="phoneno"
-          rules={{ required: "Phone no is required" }}
+          name="otp"
+          rules={{ required: "OTP is required" }}
         />
-        {errors.phoneno && <Text>{errors.phoneno.message}</Text>}
+        {errors.otp && <Text>{errors.otp.message}</Text>}
 
-        <Button style={formStyles.loginBtn} text='Request otp' onPress={handleSubmit(onSubmit)} />
+        <Button style={formStyles.loginBtn} text='Login' onPress={handleSubmit(onSubmit)} />
       </View>
     </View>
   );
@@ -84,10 +81,6 @@ const styles = StyleSheet.create({
 
     display: 'flex',
   },
-  title: {
-    fontFamily: 'Itim',
-    fontSize: 24
-  }
 
 });
 
