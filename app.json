@@ -32,6 +32,19 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Itim-Regular.ttf",
+            "./assets/fonts/Satoshi/300.ttf",
+            "./assets/fonts/Satoshi/400.ttf",
+            "./assets/fonts/Satoshi/500.ttf",
+            "./assets/fonts/Satoshi/600.ttf",
+            "./assets/fonts/Satoshi/700.ttf",
+          ]
+        }
       ]
     ],
     "experiments": {

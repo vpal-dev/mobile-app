@@ -4,9 +4,11 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
+
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { GlobalDrawer } from '@/components/global-drawer';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -14,7 +16,12 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    Itim: require('../assets/fonts/Itim-Regular.ttf'),
+    ['Satoshi-300']: require('../assets/fonts/Satoshi/300.ttf'),
+    ['Satoshi-400']: require('../assets/fonts/Satoshi/400.ttf'),
+    ['Satoshi-500']: require('../assets/fonts/Satoshi/500.ttf'),
+    ['Satoshi-600']: require('../assets/fonts/Satoshi/600.ttf'),
+    ['Satoshi-700']: require('../assets/fonts/Satoshi/700.ttf'),
   });
 
   useEffect(() => {
@@ -26,6 +33,28 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
+
+
+  const isAuthenticated = true;
+
+  // Show only auth stack if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <Stack>
+        <Stack.Screen
+          name="auth"
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack>
+    );
+  }
+
+
+  return (
+    <GlobalDrawer />
+  );
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
