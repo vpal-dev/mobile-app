@@ -31,8 +31,8 @@ following your school's format and curriculum requirements.
   },
   RELEVANT_LESSON_PLANS: {
     id: 'relevant-lesson-plans',
-    path: '/home/relevant-lesson-plans/create',
-    color: "#EFCEC8",
+    path: '/home/relevant-lessons/create',
+    color: "#E1DCA6",
     title: 'Make your lesson plan relevant',
     subtitle: '12k teachers',
     Icon: PencilRulerIcon,
@@ -44,7 +44,7 @@ Keep your content fresh and relatable for today's students.
   GRADE_PAPERS: {
     id: 'grade-papers',
     path: '/home/grade-papers/create',
-    color: "#EFCEC8",
+    color: "#C9BBED",
     title: 'Grade Papers',
     subtitle: '12k teachers',
     Icon: PencilRulerIcon,
@@ -56,7 +56,7 @@ Get consistent evaluation and detailed feedback suggestions for each student.
   LEVELLER: {
     id: 'leveller',
     path: '/home/leveller/create',
-    color: "#EFCEC8",
+    color: "#EDBBC5",
     title: 'Leveller',
     subtitle: '12k teachers',
     Icon: PencilRulerIcon,

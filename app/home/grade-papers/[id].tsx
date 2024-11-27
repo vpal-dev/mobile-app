@@ -1,7 +1,7 @@
 import { BackButton } from '@/components/back-button/back-button';
 import { Button, ButtonRaw } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
-import { useGetRelevantLesson } from '@/services/relevant-lessons';
+import { useGetGradedPaper } from '@/services/grade-papers';
 import { Link, useLocalSearchParams } from 'expo-router';
 import { useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
@@ -10,7 +10,7 @@ import Markdown from 'react-native-markdown-display';
 export default function SingleIDScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const { data: _data, isLoading } = useGetRelevantLesson(parseInt(id))
+  const { data: _data, isLoading } = useGetGradedPaper(parseInt(id))
 
   const data = useMemo(() => {
     const { title = "", shortDescription = "", content = "" } = JSON.parse(_data?.content || "{}")
@@ -31,7 +31,7 @@ export default function SingleIDScreen() {
       <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
         <BackButton />
 
-        <Link asChild href="/home/relevant-lessons/create">
+        <Link asChild href="/home/grade-papers/create">
           <Button text='New' />
         </Link>
       </View>
@@ -52,6 +52,12 @@ export default function SingleIDScreen() {
         heading2: {
           fontSize: 16,
           fontWeight: 700,
+          marginVertical: 10,
+          marginTop: 20
+        },
+        heading3: {
+          fontSize: 14,
+          fontWeight: 600,
           marginVertical: 10,
           marginTop: 20
         }

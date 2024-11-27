@@ -47,6 +47,13 @@
             "./assets/fonts/Satoshi/700.ttf"
           ]
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to analyse papers.",
+          "cameraPermission": "The app accesses your camera to scan papers."
+        }
       ]
     ],
     "experiments": {
