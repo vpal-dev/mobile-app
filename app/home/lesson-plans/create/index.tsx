@@ -1,18 +1,38 @@
-import RNPickerSelect from 'react-native-picker-select';
+import React from 'react';
 import { ActionBanner } from '@/components/action-banner';
 import { BackButton } from '@/components/back-button/back-button';
 import { ScreenBanner } from '@/components/screen-banner';
-import { Button, IconButton, SubmitButton } from '@/components/ui/button';
-import { FormControl, FormField, FormInput, FormInputAction, FormLabel } from '@/components/ui/form';
-import { Link } from 'expo-router';
-import { ArrowDownToDotIcon, PencilRulerIcon } from 'lucide-react-native';
+import { Button, SubmitButton } from '@/components/ui/button';
+import { FormControl, FormField, FormFieldMessage, FormInput, FormLabel } from '@/components/ui/form';
+import { Link, useRouter } from 'expo-router';
+import { PencilRulerIcon } from 'lucide-react-native';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { useState } from 'react';
 import { Container } from '@/components/ui/container';
+import { Controller, useForm } from 'react-hook-form';
+import { useCreateLessonPlan } from '@/services/lesson-plans';
 
 export default function CreateLessonPlanScreen() {
-  const [selectedLanguage, setSelectedLanguage] = useState();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      grade: 10,
+      topic: ""
+    },
+  })
+
+  const router = useRouter()
+  const { mutateAsync } = useCreateLessonPlan()
+
+  const onSubmit = async (data: any) => {
+    const { grade, topic } = data;
+
+    const id = await mutateAsync({ grade, topic })
+    router.navigate(`/home/lesson-plans/${id}`)
+  }
 
   return (
     <ScrollView>
@@ -24,79 +44,107 @@ export default function CreateLessonPlanScreen() {
           </Link>
         </View>
 
-        <ActionBanner
-          title='Personalize Lesson Plans'
-          Description={(({ fontSize, color }) => {
-            return (
-              <Text style={{ fontSize, color }}>Get Lessons plans to the way you write! Upload some examples and Vpal will create lesson plans as you do.</Text>
-            )
-          })}
-          buttonText='Upload Lesson Plans'
-          onPress={() => console.log('Upload Lesson Plans')}
-        />
+        <TopContent />
 
+        <View>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <FormField>
+                <FormLabel>Grade</FormLabel>
+                <FormControl>
+                  <Container style={{ width: '100%', paddingVertical: 0 }}>
+                    <Picker
+                      mode='dialog'
+                      selectedValue={value}
+                      numberOfLines={1}
+                      onValueChange={onChange}
+                      onBlur={onBlur}
+                    >
+                      <Picker.Item label="1" value="1" />
+                      <Picker.Item label="2" value="2" />
+                      <Picker.Item label="3" value="3" />
+                      <Picker.Item label="4" value="4" />
+                      <Picker.Item label="5" value="5" />
+                      <Picker.Item label="6" value="6" />
+                      <Picker.Item label="7" value="7" />
+                      <Picker.Item label="8" value="8" />
+                      <Picker.Item label="9" value="9" />
+                      <Picker.Item label="10" value="10" />
+                    </Picker>
+                  </Container>
+                </FormControl>
 
-        <ScreenBanner
-          Icon={PencilRulerIcon}
-          title='Create lesson plans in 2 mins '
-          subtitle='12k users'
-          description={
-            `
-Simply input your topic and requirements, 
-and Vpal generates detailed lesson plans with objectives, activities, and assessments. 
-Customise as needed and save your preferred templates.
-          `
-          }
-        />
+                <FormFieldMessage>
+                  {errors.grade && 'This is required.'}
+                </FormFieldMessage>
+              </FormField>
+            )}
+            name="grade"
+          />
 
-        <FormField>
-          <FormLabel>Grade</FormLabel>
-          <FormControl>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <FormField>
+                <FormLabel>What would you like to teach?</FormLabel>
+                <FormControl>
+                  <FormInput placeholder="quadratic equations" value={value} onBlur={onBlur} onChangeText={onChange} />
+                </FormControl>
+                <FormFieldMessage>
+                  {errors.topic && 'This is required.'}
+                </FormFieldMessage>
+              </FormField>
 
-            <Container style={{ width: '100%', paddingVertical: 0 }}>
-              <Picker
-                mode='dialog'
-                selectedValue={selectedLanguage}
-                // style={{ height: 200, width: '100%' }}
-                numberOfLines={1}
-                onValueChange={(itemValue, itemIndex) =>
-                  setSelectedLanguage(itemValue)
-                }>
-                <Picker.Item label="1" value="1" />
-                <Picker.Item label="2" value="2" />
-                <Picker.Item label="3" value="3" />
-                <Picker.Item label="4" value="4" />
-                <Picker.Item label="5" value="5" />
-                <Picker.Item label="6" value="6" />
-                <Picker.Item label="7" value="7" />
-                <Picker.Item label="8" value="8" />
-                <Picker.Item label="9" value="9" />
-                <Picker.Item label="10" value="10" />
-              </Picker>
-            </Container>
-          </FormControl>
-        </FormField>
+            )}
+            name="topic"
+          />
 
-
-        <FormField>
-          <FormLabel>What would you like to teach?</FormLabel>
-          <FormControl>
-            <FormInput placeholder="quadratic equations" />
-            {/*
-          <FormInputAction>
-            <IconButton Icon={ArrowDownToDotIcon} style={{ paddingHorizontal: 8 }} />
-          </FormInputAction>
-          */}
-          </FormControl>
-        </FormField>
-
-
-
-        <SubmitButton style={styles.submitBtn} text='Create Lesson Plan' onPress={() => console.log('Create Lesson Plan')} />
+          <SubmitButton style={styles.submitBtn} text='Create Lesson Plan' onPress={handleSubmit(onSubmit)} />
+        </View>
       </View>
     </ScrollView>
   );
 }
+
+
+const TopContent = () => {
+  return (
+    <>
+      <ActionBanner
+        title='Personalize Lesson Plans'
+        Description={(({ fontSize, color }) => {
+          return (
+            <Text style={{ fontSize, color }}>Get Lessons plans to the way you write! Upload some examples and Vpal will create lesson plans as you do.</Text>
+          )
+        })}
+        buttonText='Upload Lesson Plans'
+        onPress={() => console.log('Upload Lesson Plans')}
+      />
+
+
+      <ScreenBanner
+        Icon={PencilRulerIcon}
+        title='Create lesson plans in 2 mins '
+        subtitle='12k users'
+        description={
+          `
+Simply input your topic and requirements, 
+and Vpal generates detailed lesson plans with objectives, activities, and assessments. 
+Customise as needed and save your preferred templates.
+          `
+        }
+      />
+    </>
+  )
+}
+
 
 const styles = StyleSheet.create({
   container: {

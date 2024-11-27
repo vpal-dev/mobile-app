@@ -10,7 +10,7 @@ export const GlobalDrawer = () => {
       <Drawer
         drawerContent={DrawerContent}
         screenOptions={{
-          // headerShown: false,
+          headerShown: true,
           header: DrawerHeader,
           drawerHideStatusBarOnOpen: true
         }}

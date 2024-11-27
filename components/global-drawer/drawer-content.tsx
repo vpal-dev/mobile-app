@@ -1,15 +1,24 @@
 import { DrawerContentComponentProps } from "@react-navigation/drawer"
-import { Link, useRouter } from "expo-router"
+import { useRouter } from "expo-router"
 import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Button, ButtonRaw } from "../ui/button"
 import { LucideIcon } from "lucide-react-native"
+import { supabase } from "@/lib/supabase"
+import { useActiveUser } from "@/services/auth"
 
 export const DrawerContent = (props: DrawerContentComponentProps) => {
   const { top, bottom } = useSafeAreaInsets()
   const router = useRouter()
 
+  const { data, isLoading } = useActiveUser()
+
   const { state, descriptors } = props
+
+  const onLogoutPress = () => {
+    supabase.auth.signOut()
+    router.navigate('/auth/login')
+  }
 
   return (
     <View style={{ flex: 1, paddingTop: top, paddingBottom: bottom }}>
@@ -57,20 +66,20 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
         </Pressable>
 
         <ButtonRaw style={footerStyles.button} onPress={() => Alert.alert("hello")}>
+          {/*
           <View style={footerStyles.avatar} >
             <Text style={footerStyles.avatarText}>DS</Text>
           </View>
+        */}
 
-          <Text style={footerStyles.buttonText}>denosaurabh@gmail.com</Text>
+          <Text style={footerStyles.buttonText}>{isLoading ? '...' : '+' + data?.user?.phone}</Text>
 
           {/* <ChevronsUpDownIcon size={16} color="black" style={{ marginLeft: 'auto' }} /> */}
         </ButtonRaw>
 
-        <Link asChild href="/auth/login">
-          <Pressable style={{ marginLeft: 'auto', marginRight: 12 }}>
-            <Text style={footerStyles.buttonText}>Logout</Text>
-          </Pressable>
-        </Link>
+        <Pressable style={{ marginLeft: 'auto', marginRight: 12 }} onPress={onLogoutPress}>
+          <Text style={footerStyles.buttonText}>Logout</Text>
+        </Pressable>
       </View>
     </View>
   )

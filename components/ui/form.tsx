@@ -50,6 +50,14 @@ export const FormInput = (props: FormInputProps) => {
   )
 }
 
+export const FormFieldMessage = (props: BasicProps<TextStyle>) => {
+  return (
+    <Text style={[styles.fieldMessage, props.style]}>
+      {props.children}
+    </Text>
+  )
+}
+
 const styles = StyleSheet.create({
   field: {
     display: 'flex',
@@ -87,5 +95,10 @@ const styles = StyleSheet.create({
 
     fontFamily: 'Itim',
     fontSize: 16,
+  },
+  fieldMessage: {
+    fontFamily: 'Itim',
+    fontSize: 14,
+    color: 'rgba(0, 0, 0, 0.6)',
   }
 })
