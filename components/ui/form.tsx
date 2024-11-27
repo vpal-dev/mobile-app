@@ -1,5 +1,5 @@
 import { ComponentProps } from "react"
-import { StyleProp, StyleSheet, Text, TextInput, TextStyle, View, ViewStyle } from "react-native"
+import { Platform, StyleProp, StyleSheet, Text, TextInput, TextStyle, View, ViewStyle } from "react-native"
 
 type BasicProps<T> = {
   children: React.ReactNode
@@ -77,16 +77,12 @@ const styles = StyleSheet.create({
     padding: 16,
 
     borderRadius: 9,
-    borderWidth: 1,
-    borderColor: 'rgba(210, 210, 210, 1)',
     backgroundColor: 'white',
 
-    shadowColor: 'rgba(0, 0, 0, 0.1)',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 1,
-    shadowRadius: 0,
+    borderColor: 'rgba(210, 210, 210, 1)',
+    borderWidth: 1,
+    borderBottomWidth: 4,
 
-    elevation: 2,
     alignSelf: 'flex-start',
 
     fontFamily: 'Itim',

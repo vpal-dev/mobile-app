@@ -1,6 +1,6 @@
 import { DrawerContentComponentProps } from "@react-navigation/drawer"
 import { Link, useRouter } from "expo-router"
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
+import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Button, ButtonRaw } from "../ui/button"
 import { LucideIcon } from "lucide-react-native"
@@ -56,7 +56,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
           <Text style={footerStyles.buttonText}>Help & Support</Text>
         </Pressable>
 
-        <ButtonRaw style={footerStyles.button}>
+        <ButtonRaw style={footerStyles.button} onPress={() => Alert.alert("hello")}>
           <View style={footerStyles.avatar} >
             <Text style={footerStyles.avatarText}>DS</Text>
           </View>

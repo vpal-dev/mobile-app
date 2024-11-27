@@ -1,14 +1,16 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import { useForm, Controller } from "react-hook-form"
 import { FormControl, FormField, FormInput, FormLabel } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '@/lib/supabase';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 export default function OPTVerifyScreen() {
   const { bottom } = useSafeAreaInsets();
   const { phoneNo } = useLocalSearchParams();
+
+  const router = useRouter();
 
 
   const {
@@ -24,8 +26,6 @@ export default function OPTVerifyScreen() {
   const onSubmit = async (data: any) => {
     const otp = data.otp;
 
-    console.log("PO", phoneNo);
-
     const {
       data: { session },
       error,
@@ -35,6 +35,12 @@ export default function OPTVerifyScreen() {
       type: 'sms',
     })
 
+    if (error) {
+      Alert.alert(error.message)
+      return
+    }
+
+    router.navigate('/home')
   }
 
   return (

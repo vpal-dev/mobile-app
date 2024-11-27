@@ -1,5 +1,5 @@
 import { DrawerHeaderProps } from "@react-navigation/drawer"
-import { StyleSheet, Text } from "react-native"
+import { Platform, StyleSheet, Text } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Button } from "../ui/button"
 import { ChevronsRightIcon } from "lucide-react-native"
@@ -26,7 +26,8 @@ const headerStyles = StyleSheet.create({
     gap: 14,
 
     paddingHorizontal: 20,
-    paddingBottom: -10, // TODO: improve this
+    paddingVertical: 10,
+    paddingBottom: Platform.OS === 'ios' ? -10 : 10,
     marginBottom: 20,
 
     borderBottomColor: 'rgba(0, 0, 0, 0.1)',

@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     marginTop: 12,
 
     backgroundColor: "#6366F1",
-    borderColor: "#6366F1",
-    shadowColor: "#A7A8F2",
+    borderColor: "#A7A8F2",
   }
 })

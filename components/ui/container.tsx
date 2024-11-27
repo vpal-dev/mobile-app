@@ -20,15 +20,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 9,
     borderWidth: 1,
-    borderColor: 'rgba(210, 210, 210, 1)',
     backgroundColor: 'white',
 
-    shadowColor: 'rgba(0, 0, 0, 0.1)',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 1,
-    shadowRadius: 0,
+    borderColor: 'rgba(210, 210, 210, 1)',
+    borderBottomWidth: 4,
 
-    elevation: 2,
     alignSelf: 'flex-start',
   },
 });

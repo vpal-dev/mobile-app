@@ -1,6 +1,6 @@
 import { LucideIcon } from 'lucide-react-native';
 import { forwardRef } from 'react';
-import { Pressable, View, StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
+import { Pressable, View, StyleSheet, Text, StyleProp, ViewStyle, Platform } from 'react-native';
 
 type ButtonProps = {
   text: string;
@@ -68,8 +68,24 @@ export const IconButton = forwardRef<View, Omit<ButtonProps, 'text'>>(({ style, 
   );
 })
 
+
+export const SubmitButton = forwardRef<View, ButtonProps>(({ style, text, Icon, onPress }, ref) => {
+  return (
+    <ButtonRaw
+      ref={ref}
+      style={[styles.submitBtn, style]}
+      onPress={onPress}
+    >
+      {Icon && <Icon color="black" size={14} />}
+      {text ? <Text style={[styles.text, { color: "#F8FAFC" }]}>{text}</Text> : null}
+    </ButtonRaw>
+  )
+})
+
 const styles = StyleSheet.create({
   container: {
+    // boxSizing: 'border-box',
+
     display: 'flex',
     flexDirection: 'row',
     gap: 8,
@@ -84,23 +100,27 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(210, 210, 210, 1)',
     backgroundColor: 'white',
 
-    shadowColor: 'rgba(0, 0, 0, 0.1)',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 1,
-    shadowRadius: 0,
+    borderBottomWidth: 4,
 
-    elevation: 2,
     alignSelf: 'flex-start',
   },
   pressedContainer: {
     transform: [{ translateY: 4 }],
-    shadowOffset: { width: 0, height: 2 },
+    borderBottomWidth: 2,
+    marginBottom: 2,
   },
   text: {
     fontFamily: 'Itim',
     fontSize: 14,
     color: 'black',
   },
-});
+  submitBtn: {
+    width: '100%',
+    paddingVertical: 14,
+    marginHorizontal: 'auto',
 
+    backgroundColor: "#1455FE",
+    borderColor: "rgba(20, 85, 254, 0.2)",
+  }
+});
 

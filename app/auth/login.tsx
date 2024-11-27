@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import { useForm, Controller } from "react-hook-form"
 import { FormControl, FormField, FormInput, FormLabel } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
@@ -23,11 +23,20 @@ export default function LoginScreen() {
   })
 
   const onSubmit = async (data: any) => {
-    const phoneNo = data.phoneno;
+    const phoneNo = '+91' + data.phoneno;
+    console.log("Phone no", phoneNo);
 
     const { data: otpData, error } = await supabase.auth.signInWithOtp({
-      phone: '+91' + phoneNo,
+      phone: phoneNo,
+      options: {
+        channel: 'sms'
+      }
     })
+
+    if (error) {
+      Alert.alert(error.message)
+      return
+    }
 
     router.navigate({
       pathname: '/auth/otp-verify',

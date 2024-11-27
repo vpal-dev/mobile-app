@@ -28,7 +28,6 @@ export const FeatureBox = ({ path, title, subtitle, description, Icon }: Feature
           </View>
         </View>
 
-
         <Text style={featureBox.description}>
           {description.trim()}
         </Text>
