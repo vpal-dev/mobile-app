@@ -1,5 +1,4 @@
 import React from 'react';
-import { ActionBanner } from '@/components/action-banner';
 import { BackButton } from '@/components/back-button/back-button';
 import { ScreenBanner } from '@/components/screen-banner';
 import { Button, SubmitButton } from '@/components/ui/button';
@@ -8,10 +7,10 @@ import { Link, useRouter } from 'expo-router';
 import { PencilRulerIcon } from 'lucide-react-native';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
-import { useCreateLessonPlan } from '@/services/lesson-plans';
 import { FEATURES_DATA } from '@/constants/features-data';
+import { useGenerateQA } from '@/services/generate-qa';
 
-export default function CreateLessonPlanScreen() {
+export default function CreateQAScreen() {
   const {
     control,
     handleSubmit,
@@ -19,18 +18,20 @@ export default function CreateLessonPlanScreen() {
   } = useForm({
     defaultValues: {
       grade: 10,
+      noOfQuestions: 4,
+      type: "mcq",
       topic: ""
     },
   })
 
   const router = useRouter()
-  const { mutateAsync } = useCreateLessonPlan()
+  const { mutateAsync } = useGenerateQA()
 
   const onSubmit = async (data: any) => {
-    const { grade, topic } = data;
+    const { grade, noOfQuestions, type, topic } = data;
 
-    const id = await mutateAsync({ grade, topic })
-    router.navigate(`/home/lesson-plans/${id}`)
+    const id = await mutateAsync({ grade, topic, noOfQuestions, type })
+    router.navigate(`/home/generate-qa/${id}`)
   }
 
   return (
@@ -38,7 +39,7 @@ export default function CreateLessonPlanScreen() {
       <View style={styles.container}>
         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <BackButton />
-          <Link asChild href="/home/lesson-plans">
+          <Link asChild href="/home/generate-qa">
             <Button text='History' />
           </Link>
         </View>
@@ -89,7 +90,71 @@ export default function CreateLessonPlanScreen() {
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <FormField>
-                <FormLabel>What would you like to teach?</FormLabel>
+                <FormLabel>No of Questions</FormLabel>
+                <FormControl>
+                  <FormSelect
+                    value={String(value)}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    options={[
+                      { label: "1", value: "1" },
+                      { label: "2", value: "2" },
+                      { label: "3", value: "3" },
+                      { label: "4", value: "4" },
+                      { label: "5", value: "5" },
+                      { label: "6", value: "6" },
+                      { label: "7", value: "7" },
+                      { label: "8", value: "8" }
+                    ]}
+                  />
+                </FormControl>
+
+                <FormFieldMessage>
+                  {errors.grade && 'This is required.'}
+                </FormFieldMessage>
+              </FormField>
+            )}
+            name="noOfQuestions"
+          />
+
+
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <FormField>
+                <FormLabel>Type of Assessment</FormLabel>
+                <FormControl>
+                  <FormSelect
+                    value={String(value)}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    options={[
+                      { label: "MCQ", value: "mcq" },
+                      { label: "Quiz", value: "quiz" },
+                      { label: "Long Form", value: "long form" },
+                    ]}
+                  />
+                </FormControl>
+
+                <FormFieldMessage>
+                  {errors.grade && 'This is required.'}
+                </FormFieldMessage>
+              </FormField>
+            )}
+            name="type"
+          />
+
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <FormField>
+                <FormLabel>What would you like to create for?</FormLabel>
                 <FormControl>
                   <FormInput placeholder="quadratic equations" value={value} onBlur={onBlur} onChangeText={onChange} />
                 </FormControl>
@@ -102,10 +167,10 @@ export default function CreateLessonPlanScreen() {
             name="topic"
           />
 
-          <SubmitButton style={styles.submitBtn} text='Create Lesson Plan' onPress={handleSubmit(onSubmit)} />
+          <SubmitButton style={styles.submitBtn} text='Generate Assessment' onPress={handleSubmit(onSubmit)} />
         </View>
       </View>
-    </ScrollView >
+    </ScrollView>
   );
 }
 
@@ -113,22 +178,11 @@ export default function CreateLessonPlanScreen() {
 const TopContent = () => {
   return (
     <>
-      <ActionBanner
-        title='Personalize Lesson Plans'
-        Description={(({ fontSize, color }) => {
-          return (
-            <Text style={{ fontSize, color }}>Get Lessons plans to the way you write! Upload some examples and Vpal will create lesson plans as you do.</Text>
-          )
-        })}
-        buttonText='Upload Lesson Plans'
-        onPress={() => console.log('Upload Lesson Plans')}
-      />
-
       <ScreenBanner
         Icon={PencilRulerIcon}
-        title={FEATURES_DATA.LESSON_PLANS.title}
-        subtitle={FEATURES_DATA.LESSON_PLANS.subtitle}
-        description={FEATURES_DATA.LESSON_PLANS.description}
+        title={FEATURES_DATA.GENERATE_QA.title}
+        subtitle={FEATURES_DATA.GENERATE_QA.subtitle}
+        description={FEATURES_DATA.GENERATE_QA.description}
       />
     </>
   )

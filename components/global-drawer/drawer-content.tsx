@@ -1,5 +1,5 @@
 import { DrawerContentComponentProps } from "@react-navigation/drawer"
-import { useRouter } from "expo-router"
+import { Link, useRouter } from "expo-router"
 import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Button, ButtonRaw } from "../ui/button"
@@ -61,9 +61,11 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
 
 
       <View style={footerStyles.container}>
-        <Pressable>
-          <Text style={footerStyles.buttonText}>Help & Support</Text>
-        </Pressable>
+        <Link asChild href={`https://wa.me/${918981802453}`}>
+          <Pressable>
+            <Text style={footerStyles.buttonText}>Help & Support</Text>
+          </Pressable>
+        </Link>
 
         <ButtonRaw style={footerStyles.button} onPress={() => Alert.alert("hello")}>
           {/*

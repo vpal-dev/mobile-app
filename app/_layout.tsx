@@ -43,10 +43,6 @@ const AuthPass = () => {
     })
   }, [])
 
-  if (isSessionLoading) {
-    return null
-  }
-
   // Show only auth stack if not authenticated
   if (!session) {
     return (

@@ -1,5 +1,7 @@
 import { ComponentProps } from "react"
 import { Platform, StyleProp, StyleSheet, Text, TextInput, TextStyle, View, ViewStyle } from "react-native"
+import { Container } from "./container"
+import { Picker } from "@react-native-picker/picker"
 
 type BasicProps<T> = {
   children: React.ReactNode
@@ -47,6 +49,32 @@ export const FormInput = (props: FormInputProps) => {
       style={[styles.input, style]}
       {...rest}
     />
+  )
+}
+
+type FormSelectProps = {
+  value: string
+  onChange: (value: string) => void
+  onBlur: () => void
+  options: Array<{ label: string, value: string }>
+}
+export const FormSelect = (props: FormSelectProps) => {
+  return (
+    <Container style={{ width: '100%', paddingVertical: 0 }}>
+      <Picker
+        mode='dialog'
+        selectedValue={props.value}
+        numberOfLines={1}
+        onValueChange={props.onChange}
+        onBlur={props.onBlur}
+      >
+        {
+          props.options.map(option => (
+            <Picker.Item key={option.value} label={option.label} value={option.value} />
+          ))
+        }
+      </Picker>
+    </Container>
   )
 }
 

@@ -5,6 +5,7 @@ import { Link } from "expo-router";
 
 export type FeatureBoxProps = {
   path: string;
+  color: string;
 
   title: string;
   subtitle: string;
@@ -13,12 +14,12 @@ export type FeatureBoxProps = {
   Icon: LucideIcon;
 }
 
-export const FeatureBox = ({ path, title, subtitle, description, Icon }: FeatureBoxProps) => {
+export const FeatureBox = ({ path, color, title, subtitle, description, Icon }: FeatureBoxProps) => {
   return (
     <Link asChild href={path as any}>
       <ButtonRaw style={featureBox.container}>
         <View style={featureBox.titleContainer}>
-          <View style={featureBox.iconBox}>
+          <View style={[featureBox.iconBox, { backgroundColor: color }]}>
             <Icon size={22} color="rgba(0.9, 0.8, 0.7, 1)" strokeWidth={1.4} />
           </View>
 

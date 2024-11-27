@@ -9,13 +9,15 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.denosaurabh.vpalapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.denosaurabh.vpalapp"
     },
     "web": {
       "bundler": "metro",
@@ -42,13 +44,21 @@
             "./assets/fonts/Satoshi/400.ttf",
             "./assets/fonts/Satoshi/500.ttf",
             "./assets/fonts/Satoshi/600.ttf",
-            "./assets/fonts/Satoshi/700.ttf",
+            "./assets/fonts/Satoshi/700.ttf"
           ]
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "4781ce3e-32d0-4414-826c-998580f9a3f4"
+      }
     }
   }
 }
