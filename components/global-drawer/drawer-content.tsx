@@ -1,3 +1,4 @@
+import React from "react"
 import { DrawerContentComponentProps } from "@react-navigation/drawer"
 import { Link, useRouter } from "expo-router"
 import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
@@ -75,21 +76,26 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
 
 
 
-        <ButtonRaw style={footerStyles.button} onPress={() => Alert.alert("hello")}>
-          {/*
-          <View style={footerStyles.avatar} >
-            <Text style={footerStyles.avatarText}>DS</Text>
-          </View>
-        */}
+        {
+          data?.user ? (
+            <>
+              <ButtonRaw style={footerStyles.button} onPress={() => Alert.alert("hello")}>
+                <Text style={footerStyles.buttonText}>{isLoading ? '...' : '+' + data?.user?.phone}</Text>
+              </ButtonRaw>
 
-          <Text style={footerStyles.buttonText}>{isLoading ? '...' : '+' + data?.user?.phone}</Text>
+              <Pressable style={{ marginLeft: 'auto', marginRight: 12 }} onPress={onLogoutPress}>
+                <Text style={footerStyles.buttonText}>Logout</Text>
+              </Pressable>
+            </>
+          ) : (
+            <Link asChild href="/auth/login">
+              <ButtonRaw style={footerStyles.button}>
+                <Text style={footerStyles.buttonText}>Login</Text>
+              </ButtonRaw>
+            </Link>
+          )
+        }
 
-          {/* <ChevronsUpDownIcon size={16} color="black" style={{ marginLeft: 'auto' }} /> */}
-        </ButtonRaw>
-
-        <Pressable style={{ marginLeft: 'auto', marginRight: 12 }} onPress={onLogoutPress}>
-          <Text style={footerStyles.buttonText}>Logout</Text>
-        </Pressable>
       </View>
     </View>
   )

@@ -56,6 +56,7 @@ const AuthPass = () => {
   }, []);
 
   // Show only auth stack if not authenticated
+  /*
   if (!session) {
     return (
       <Stack screenOptions={{ headerShown: false }}>
@@ -68,6 +69,7 @@ const AuthPass = () => {
       </Stack>
     );
   }
+  */
 
 
   return (
@@ -96,6 +98,7 @@ export default function RootLayout() {
     return null;
   }
 
+  /*
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <QueryClientProvider client={queryClient}>
@@ -103,9 +106,10 @@ export default function RootLayout() {
       </QueryClientProvider>
     </ThemeProvider>
   )
+  */
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={DefaultTheme}>
       <QueryClientProvider client={queryClient}>
         <AuthPass />
       </QueryClientProvider>
