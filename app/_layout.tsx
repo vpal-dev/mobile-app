@@ -21,6 +21,7 @@ SplashScreen.preventAutoHideAsync();
 const AuthPass = () => {
   const [isSessionLoading, setIsSessionLoading] = useState(true)
   const [session, setSession] = useState<Session | null>(null)
+  // const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const router = useRouter()
 
@@ -32,7 +33,7 @@ const AuthPass = () => {
         setIsSessionLoading(false);
 
         if (!session) {
-          router.push('/auth/login');
+          // router.push('/auth/login');
         }
       } catch (error) {
         Alert.alert(`Error fetching session ${error}`);
@@ -48,12 +49,26 @@ const AuthPass = () => {
       setIsSessionLoading(false);
 
       if (!session) {
-        router.push('/auth/login');
+        // router.push('/auth/login');
       }
     });
 
     return () => subscription.subscription.unsubscribe();
   }, []);
+
+  if (isSessionLoading) {
+    return (
+      <Text>loading session...</Text>
+    );
+  }
+
+  /*
+  if (!session) {
+    return (
+      <Text>not authenticated</Text>
+    )
+  }
+  */
 
   // Show only auth stack if not authenticated
   /*
@@ -70,7 +85,6 @@ const AuthPass = () => {
     );
   }
   */
-
 
   return (
     <GlobalDrawer />
@@ -92,10 +106,12 @@ export default function RootLayout() {
     if (loaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [, loaded]);
 
   if (!loaded) {
-    return null;
+    return (
+      <Text>asset loading...</Text>
+    );
   }
 
   /*

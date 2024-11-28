@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '@/lib/supabase';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function OPTVerifyScreen() {
   const { bottom } = useSafeAreaInsets();
@@ -23,6 +24,8 @@ export default function OPTVerifyScreen() {
     },
   })
 
+  const client = useQueryClient()
+
   const onSubmit = async (data: any) => {
     const otp = data.otp;
 
@@ -39,6 +42,8 @@ export default function OPTVerifyScreen() {
       Alert.alert(error.message)
       return
     }
+
+    client.invalidateQueries({ queryKey: ['active-user'] })
 
     router.navigate('/home')
   }
