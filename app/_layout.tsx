@@ -13,6 +13,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@/lib/query-client';
 import { supabase } from '@/lib/supabase';
 import { Session } from '@supabase/supabase-js';
+import { Text } from 'react-native';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -83,6 +84,12 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Text>hello</Text>
+    </QueryClientProvider>
+  )
 
   return (
     <QueryClientProvider client={queryClient}>

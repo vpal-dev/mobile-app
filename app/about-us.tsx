@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "expo-router";
-import { SafeAreaView, Text } from "react-native";
+import { SafeAreaView } from "react-native";
 
 export default function AboutUsScreen() {
   return (
