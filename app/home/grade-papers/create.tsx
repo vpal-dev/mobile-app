@@ -4,7 +4,7 @@ import { ScreenBanner } from '@/components/screen-banner';
 import { Button, IconButton, SubmitButton } from '@/components/ui/button';
 import { FormControl, FormField, FormFieldMessage, FormInputAction, FormLabel, FormSelect } from '@/components/ui/form';
 import { Link, useRouter } from 'expo-router';
-import { PencilRulerIcon, UploadIcon } from 'lucide-react-native';
+import { CameraIcon, PencilRulerIcon, UploadIcon } from 'lucide-react-native';
 import { View, StyleSheet, ScrollView, Image } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import { FEATURES_DATA } from '@/constants/features-data';
@@ -31,15 +31,30 @@ export default function CreateScreen() {
 
   const photos = watch('photos')
 
-  const onPhotosUploadPress = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images'],
-      allowsEditing: true,
-      quality: 1,
-      base64: true
-    });
+  const onPhotosUploadPress = async (type: 'camera' | 'gallery') => {
 
-    if (!result.canceled) {
+
+    let result = null;
+
+    if (type === 'camera') {
+      result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ['images'],
+        allowsEditing: true,
+        quality: 1,
+        base64: true
+      });
+    }
+
+    if (type === 'gallery') {
+      result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images'],
+        allowsEditing: true,
+        quality: 1,
+        base64: true
+      });
+    }
+
+    if (result && !result?.canceled) {
       setValue('photos', result.assets);
     }
   }
@@ -109,14 +124,24 @@ export default function CreateScreen() {
 
           <FormField>
             <FormLabel>Upload Papers</FormLabel>
-            <FormControl>
+            <FormControl style={{ flexDirection: 'row', gap: 10 }}>
               <Button
-                onPress={onPhotosUploadPress}
-                style={{ width: '100%', paddingVertical: 16 }}
-                text={photos.length ? "Photo Uploaded!" : 'Upload'}
+                onPress={() => onPhotosUploadPress('camera')}
+                style={{ flex: 1, paddingVertical: 16 }}
+                text="Camera"
+              />
+
+              <Button
+                onPress={() => onPhotosUploadPress('gallery')}
+                style={{ flex: 1, paddingVertical: 16 }}
+                text="Gallery"
               />
               <FormInputAction>
                 <IconButton Icon={UploadIcon} />
+              </FormInputAction>
+
+              <FormInputAction style={{ right: '55%' }}>
+                <IconButton Icon={CameraIcon} />
               </FormInputAction>
             </FormControl>
 

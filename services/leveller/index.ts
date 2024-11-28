@@ -6,13 +6,13 @@ import { useActiveUser } from "../auth"
 import { ImagePickerAsset } from "expo-image-picker";
 import { nanoid } from "nanoid";
 
-export type UseGradePaperReturn = number
+export type UseLevellerReturn = number
 
-export const useGradePaper = () => {
+export const useLevelAssignment = () => {
   const { data: user } = useActiveUser()
 
   return useMutation({
-    mutationFn: async (data: { grade: number, photos: ImagePickerAsset[] }): Promise<UseGradePaperReturn> => {
+    mutationFn: async (data: { grade: number, description: string, photos: ImagePickerAsset[] }): Promise<UseLevellerReturn> => {
       const photo = data.photos[0];
 
       const photoName = photo.fileName || photo.uri.split('/').pop() || nanoid();
@@ -20,7 +20,7 @@ export const useGradePaper = () => {
 
       console.log("PHOTO", photoName, photo.mimeType)
 
-      const { data: storedImgs, error: uploadError } = await supabase.storage.from('grade-papers').upload(
+      const { data: storedImgs, error: uploadError } = await supabase.storage.from('leveller').upload(
         photoId,
         decode(photo.base64 || ''),
         {
@@ -28,18 +28,14 @@ export const useGradePaper = () => {
         }
       )
 
-      /*
-      const { data: urlData } = await supabase.storage.from('grade-papers').createSignedUrl(
-        storedImgs?.path || '',
-        60 * 5, // 5 minutes
-      )
-      */
+      const { data: urlData } = supabase.storage.from('leveller').getPublicUrl(storedImgs?.path || '')
 
       const res = await APIFetch.post(
-        'grade-paper',
+        'leveller',
         {
           body: {
             grade: data.grade,
+            description: data.description,
             photos: [
               { type: photo.mimeType, base64: photo.base64 }
             ]
@@ -47,9 +43,10 @@ export const useGradePaper = () => {
         }
       )
 
-      const { data: sData, error: _errors2 } = await supabase.from('grade-papers').insert({
+      const { data: sData, error: _errors2 } = await supabase.from('leveller').insert({
         grade: data.grade,
-        photos: [storedImgs?.fullPath],
+        description: data.description,
+        photos: [urlData.publicUrl],
 
         content: res?.content[0]?.text,
         user_id: user?.user?.id
@@ -60,22 +57,23 @@ export const useGradePaper = () => {
   })
 }
 
-export const useGetAllGradedPapers = () => {
+export const useGetAllLevelledAssignments = () => {
   return useQuery({
-    queryKey: ['all-graded-papers'],
+    queryKey: ['all-levelled-assignments'],
     queryFn: async () => {
-      const { data, error: _ } = await supabase.from('grade-papers').select('*');
+      const { data, error: _ } = await supabase.from('leveller').select('*');
       return data
     },
   })
 }
 
-export const useGetGradedPaper = (id: number) => {
+export const useGetLevelledAssignment = (id: number) => {
   return useQuery({
-    queryKey: ['graded-paper', id],
+    queryKey: ['levelled-assignment', id],
     queryFn: async () => {
-      const { data, error: _ } = await supabase.from('grade-papers').select('*').eq('id', id).limit(1).single();
+      const { data, error: _ } = await supabase.from('leveller').select('*').eq('id', id).limit(1).single();
       return data
     },
   })
 }
+

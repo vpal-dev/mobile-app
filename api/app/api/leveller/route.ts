@@ -2,10 +2,10 @@ import { anthropic } from "@/utils/anthropic";
 
 export async function POST(request: Request) {
   const body = await request.json()
-  const { grade, statement, photos } = body
+  const { grade, description, photos } = body
 
   const PROMPT = `
-  Recreate the above provided assessment for ${grade}th grade to align with "${statement}".
+  Recreate the above provided assessment for ${grade}th grade to align with "${description}".
   Create it in markdown format.
 
   create a JSON with \`title\`, \`shortDescription\` & \`content\` field. And only return a JSON, not simple text.
