@@ -67,6 +67,14 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
           </Pressable>
         </Link>
 
+        <Link asChild href={`/about-us`}>
+          <Pressable>
+            <Text style={footerStyles.buttonText}>About us</Text>
+          </Pressable>
+        </Link>
+
+
+
         <ButtonRaw style={footerStyles.button} onPress={() => Alert.alert("hello")}>
           {/*
           <View style={footerStyles.avatar} >

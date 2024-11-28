@@ -1,5 +1,3 @@
-import { supabase } from "./supabase";
-
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 export class APIFetch {

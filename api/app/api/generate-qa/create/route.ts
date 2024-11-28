@@ -1,4 +1,6 @@
-import { anthropic } from "@/utils/anthropic";
+import { Anthropic } from "@/utils/anthropic";
+
+export const runtime = "edge";
 
 export async function POST(request: Request) {
   const body = await request.json()
@@ -12,10 +14,7 @@ export async function POST(request: Request) {
   It is connected with a service that expects that you will only return a proper JSON.
   `
 
-  const msg = await anthropic.messages.create({
-    model: "claude-3-5-sonnet-20241022",
-    max_tokens: 1000,
-    temperature: 0,
+  const msg = await Anthropic.message({
     messages: [{ role: "user", content: [{ type: 'text', text: PROMPT }] }]
   });
   const aiRes = msg.content;

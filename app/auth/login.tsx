@@ -3,9 +3,9 @@ import { useForm, Controller } from "react-hook-form"
 import { FormControl, FormField, FormInput, FormLabel } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '@/lib/supabase';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 
 export default function LoginScreen() {
   const { bottom } = useSafeAreaInsets();
@@ -45,8 +45,15 @@ export default function LoginScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>LOGIN</Text>
+    <SafeAreaView style={styles.container}>
+
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>VPal</Text>
+        <Text style={styles.subtitle}>
+          Meet your AI teaching partner! Create lesson plans, grade papers, and generate assessments in minutes.
+          Designed specifically for Indian educators to reduce workload.
+        </Text>
+      </View>
 
       <View style={[formStyles.container, { paddingBottom: bottom }]}>
         <Controller
@@ -79,8 +86,20 @@ export default function LoginScreen() {
         {errors.phoneno && <Text>{errors.phoneno.message}</Text>}
 
         <Button style={formStyles.loginBtn} text='Request otp' onPress={handleSubmit(onSubmit)} />
+
+        <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 5, marginTop: 20 }}>
+          <Text>By continuing, you agree to our</Text>
+          <Link href="/terms-of-service"><Text style={{ color: '#007AFF' }}>Terms of Service</Text></Link>
+          <Text>and</Text>
+          <Link href="/privacy-policy"><Text style={{ color: '#007AFF' }}>Privacy Policy</Text></Link>
+        </View>
+
+        <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 5, }}>
+          <Text>for support, reach us out at</Text>
+          <Text style={{ color: '#007AFF' }}>support@loonshots.in</Text>
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -89,13 +108,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    paddingHorizontal: 20,
 
     display: 'flex',
+  },
+  textContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 8,
+    marginTop: 40
   },
   title: {
     fontFamily: 'Itim',
     fontSize: 24
+  },
+  subtitle: {
+    fontFamily: 'Itim',
+    fontSize: 16,
+    color: '#5A5A5A'
   }
 
 });
