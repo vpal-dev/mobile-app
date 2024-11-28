@@ -1,7 +1,7 @@
 import React from "react"
 import { DrawerContentComponentProps } from "@react-navigation/drawer"
 import { Link, useRouter } from "expo-router"
-import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
+import { Alert, Image, Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Button, ButtonRaw } from "../ui/button"
 import { LucideIcon } from "lucide-react-native"
@@ -22,7 +22,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
   }
 
   return (
-    <View style={{ flex: 1, paddingTop: top, paddingBottom: bottom }}>
+    <View style={{ flex: 1, paddingTop: top, paddingBottom: bottom, marginVertical: Platform.OS === 'android' ? 20 : 0 }}>
       <View style={schoolStyles.container}>
         <Image
           source={{
