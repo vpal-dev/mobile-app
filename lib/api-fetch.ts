@@ -1,4 +1,5 @@
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
+console.log("API URL", API_URL)
 
 export class APIFetch {
   // authenticated requests

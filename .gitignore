@@ -2,6 +2,11 @@
 
 .env
 
+android
+ios
+
+build-*.*
+
 # dependencies
 node_modules/
 

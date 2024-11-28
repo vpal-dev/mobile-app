@@ -12,6 +12,7 @@ export async function POST(request: Request) {
 
   create a JSON with \`title\`, \`shortDescription\` & \`content\` field. And only return a JSON, not simple text.
   It is connected with a service that expects that you will only return a proper JSON.
+
   `
 
   const msg = await Anthropic.message({
