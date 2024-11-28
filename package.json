@@ -1,5 +1,5 @@
 {
-  "name": "vpal-app",
+  "name": "vpal",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
