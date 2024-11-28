@@ -136,8 +136,8 @@ d) Other applicable Indian regulations
 
 For privacy-related inquiries:
 Email: support@loonshots.in
-Address: [Your Address]
-Phone: [Your Phone Number]
+Address: 9/6, Lloyd Road, Cooke town, Bangalore 560006
+Phone: +91 8431148737
 
 
 `

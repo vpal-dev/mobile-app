@@ -13,7 +13,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@/lib/query-client';
 import { supabase } from '@/lib/supabase';
 import { Session } from '@supabase/supabase-js';
-import { Text } from 'react-native';
+import { Alert, Text } from 'react-native';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -25,24 +25,35 @@ const AuthPass = () => {
   const router = useRouter()
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-      setIsSessionLoading(false)
+    const fetchSession = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        setSession(session);
+        setIsSessionLoading(false);
+
+        if (!session) {
+          router.push('/auth/login');
+        }
+      } catch (error) {
+        Alert.alert(`Error fetching session ${error}`);
+        console.error('Error fetching session:', error);
+        setIsSessionLoading(false);
+      }
+    };
+
+    fetchSession();
+
+    const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setIsSessionLoading(false);
 
       if (!session) {
-        router.navigate('/auth/login')
+        router.push('/auth/login');
       }
-    })
+    });
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-      setIsSessionLoading(false)
-
-      if (!session) {
-        router.navigate('/auth/login')
-      }
-    })
-  }, [])
+    return () => subscription.subscription.unsubscribe();
+  }, []);
 
   // Show only auth stack if not authenticated
   if (!session) {
@@ -86,15 +97,19 @@ export default function RootLayout() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Text>hello</Text>
-    </QueryClientProvider>
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <QueryClientProvider client={queryClient}>
+        <Text>hello</Text>
+      </QueryClientProvider>
+    </ThemeProvider>
   )
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthPass />
-    </QueryClientProvider>
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <QueryClientProvider client={queryClient}>
+        <AuthPass />
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 
   return (
