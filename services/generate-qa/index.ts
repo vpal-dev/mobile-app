@@ -12,7 +12,7 @@ export const useGenerateQA = () => {
     mutationFn: async (data: { grade: number, topic: string, noOfQuestions: number, type: string }): Promise<UseCreateQAReturn> => {
       const res = await APIFetch.post('generate-qa/create', { body: data })
 
-      const { data: sData, error: _ } = await supabase.from('qa').insert({
+      const { data: sData, error } = await supabase.from('qa').insert({
         grade: data.grade,
         topic: data.topic,
         noOfQuestions: data.noOfQuestions,
@@ -21,6 +21,8 @@ export const useGenerateQA = () => {
         content: res?.content[0]?.text,
         user_id: user?.user?.id
       }).select('id').single();
+
+      console.log("aq insert error", error)
 
       return sData?.id;
     }

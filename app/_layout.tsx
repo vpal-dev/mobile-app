@@ -4,6 +4,7 @@ import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
+import { PostHogProvider } from 'posthog-react-native'
 
 import 'react-native-reanimated';
 
@@ -136,9 +137,36 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={LightTheme}>
-      <QueryClientProvider client={queryClient}>
-        <AuthPass />
-      </QueryClientProvider>
+      <PostHogProvider apiKey="phc_eNOKoryFVm1I5UWRHNFGCGW8C8JUpKT2FnoO7XPESuQ" options={{
+        host: "https://us.i.posthog.com",
+
+        enableSessionReplay: true,
+        sessionReplayConfig: {
+          // Whether text inputs are masked. Default is true.
+          // Password inputs are always masked regardless
+          // maskAllTextInputs: true,
+          maskAllTextInputs: false,
+          // Whether images are masked. Default is true.
+          // maskAllImages: true,
+          maskAllImages: false,
+          // Capture logs automatically. Default is true.
+          // Android only (Native Logcat only)
+          captureLog: true,
+          // Whether network requests are captured in recordings. Default is true
+          // Only metric-like data like speed, size, and response code are captured.
+          // No data is captured from the request or response body.
+          // iOS only
+          captureNetworkTelemetry: true,
+          // Deboucer delay used to reduce the number of snapshots captured and reduce performance impact. Default is 500ms
+          androidDebouncerDelayMs: 500,
+          // Deboucer delay used to reduce the number of snapshots captured and reduce performance impact. Default is 1000ms
+          iOSdebouncerDelayMs: 1000,
+        },
+      }}>
+        <QueryClientProvider client={queryClient}>
+          <AuthPass />
+        </QueryClientProvider>
+      </PostHogProvider>
     </ThemeProvider>
   );
 

@@ -12,12 +12,14 @@ export const useCreateLessonPlan = () => {
     mutationFn: async (data: { grade: number, topic: string }): Promise<UseCreateLessonPlanReturn> => {
       const res = await APIFetch.post('lesson-plans/create', { body: data })
 
-      const { data: sData, error: _ } = await supabase.from('lesson-plans').insert({
+      const { data: sData, error } = await supabase.from('lesson-plans').insert({
         grade: data.grade,
         topic: data.topic,
         content: res?.content[0]?.text,
         user_id: user?.user?.id
       }).select('id').single();
+
+      console.log("lesson-plan insert error", error)
 
       return sData?.id;
     }

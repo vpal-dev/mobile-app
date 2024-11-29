@@ -28,6 +28,8 @@ export const useLevelAssignment = () => {
         }
       )
 
+      console.error("leveller upload error", uploadError)
+
       const { data: urlData } = supabase.storage.from('leveller').getPublicUrl(storedImgs?.path || '')
 
       const res = await APIFetch.post(
@@ -51,6 +53,8 @@ export const useLevelAssignment = () => {
         content: res?.content[0]?.text,
         user_id: user?.user?.id
       }).select('id').single();
+
+      console.error("leveller insert error", _errors2)
 
       return sData?.id;
     }
