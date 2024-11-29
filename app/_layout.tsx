@@ -21,7 +21,6 @@ SplashScreen.preventAutoHideAsync();
 const AuthPass = () => {
   const [isSessionLoading, setIsSessionLoading] = useState(true)
   const [session, setSession] = useState<Session | null>(null)
-  // const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const router = useRouter()
 
@@ -91,6 +90,17 @@ const AuthPass = () => {
   );
 }
 
+
+// Custom light theme, if needed
+const LightTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#fff',  // Set the background to white or another light color
+    text: '#000',        // Set text color to black for better contrast
+  },
+};
+
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
@@ -125,7 +135,7 @@ export default function RootLayout() {
   */
 
   return (
-    <ThemeProvider value={DefaultTheme}>
+    <ThemeProvider value={LightTheme}>
       <QueryClientProvider client={queryClient}>
         <AuthPass />
       </QueryClientProvider>
