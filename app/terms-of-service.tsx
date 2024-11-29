@@ -82,7 +82,7 @@ For any queries regarding these Terms, please contact us at support@loonshots.in
 export default function TermsofServiceScreen() {
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ marginBottom: 100 }}>
       <View style={{ paddingLeft: 20, marginBottom: 30 }}>
         <BackButton />
       </View>

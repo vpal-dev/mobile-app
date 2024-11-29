@@ -23,7 +23,11 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
 
   return (
     <View style={{ flex: 1, paddingTop: top, paddingBottom: bottom, marginVertical: Platform.OS === 'android' ? 20 : 0 }}>
-      <View style={schoolStyles.container}>
+      <Text style={schoolStyles.logoTitle}>
+        VPal
+      </Text>
+
+      <View style={[schoolStyles.container, { display: 'none' }]}>
         <Image
           source={{
             uri: "https://reactnative.dev/img/tiny_logo.png"
@@ -68,11 +72,13 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
           </Pressable>
         </Link>
 
+        {/*
         <Link asChild href={`/about-us`}>
           <Pressable>
             <Text style={footerStyles.buttonText}>About us</Text>
           </Pressable>
         </Link>
+        */}
 
 
 
@@ -102,6 +108,11 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
 }
 
 const schoolStyles = StyleSheet.create({
+  logoTitle: {
+    paddingHorizontal: 20,
+    fontFamily: "Itim",
+    fontSize: 24,
+  },
   container: {
     display: 'flex',
     flexDirection: 'row',

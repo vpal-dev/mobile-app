@@ -23,7 +23,7 @@ export default function CreateScreen() {
   })
 
   const router = useRouter()
-  const { mutateAsync } = useGenerateRelevantLesson()
+  const { mutateAsync, isPending } = useGenerateRelevantLesson()
 
   const onSubmit = async (data: any) => {
     const { learningObjective, classProfile } = data;
@@ -98,7 +98,7 @@ export default function CreateScreen() {
             name="classProfile"
           />
 
-          <SubmitButton style={styles.submitBtn} text='Generate Relevant Plan' onPress={handleSubmit(onSubmit)} />
+          <SubmitButton isLoading={isPending} style={styles.submitBtn} text='Generate Relevant Plan' onPress={handleSubmit(onSubmit)} />
         </View>
       </View>
     </ScrollView>

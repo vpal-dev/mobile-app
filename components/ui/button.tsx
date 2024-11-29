@@ -1,6 +1,6 @@
-import { LucideIcon } from 'lucide-react-native';
-import { forwardRef } from 'react';
-import { Pressable, View, StyleSheet, Text, StyleProp, ViewStyle, Platform } from 'react-native';
+import { LoaderIcon, LucideIcon } from 'lucide-react-native';
+import { forwardRef, useEffect, useRef } from 'react';
+import { Pressable, View, StyleSheet, Text, StyleProp, ViewStyle, Animated, Easing } from 'react-native';
 
 type ButtonProps = {
   text: string;
@@ -68,16 +68,61 @@ export const IconButton = forwardRef<View, Omit<ButtonProps, 'text'>>(({ style, 
   );
 })
 
+type SubmitButtonProps = ButtonProps & {
+  isLoading: boolean;
+}
 
-export const SubmitButton = forwardRef<View, ButtonProps>(({ style, text, Icon, onPress }, ref) => {
+export const SubmitButton = forwardRef<View, SubmitButtonProps>(({ style, text, Icon, onPress, isLoading }, ref) => {
+  // Create a new Animated.Value
+  const rotateAnim = useRef(new Animated.Value(0)).current;
+
+  // Function to start the infinite rotation
+  useEffect(() => {
+    const startRotation = () => {
+      Animated.loop(
+        Animated.timing(rotateAnim, {
+          toValue: 1, // Rotate from 0 to 1
+          duration: 2000, // Duration in milliseconds
+          useNativeDriver: true, // Use native driver for better performance
+          easing: Easing.linear,
+          // easing: Animated.Animated.Easing.linear, // Smooth, consistent rotation
+        })
+      ).start();
+    };
+
+    startRotation();
+  }, [rotateAnim]);
+
+  const spin = rotateAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "360deg"],
+  });
+
   return (
     <ButtonRaw
       ref={ref}
-      style={[styles.submitBtn, style]}
+      style={[
+        styles.submitBtn,
+        isLoading ? { backgroundColor: "#5987FF" } : {},
+        style
+      ]}
       onPress={onPress}
     >
+      {isLoading ? (
+        <Animated.View style={{ transform: [{ rotate: spin }] }}>
+          <LoaderIcon
+            size={14}
+            color="#F8FAFC"
+          />
+        </Animated.View>
+      ) : null}
+
       {Icon && <Icon color="black" size={14} />}
-      {text ? <Text style={[styles.text, { color: "#F8FAFC" }]}>{text}</Text> : null}
+      {isLoading ? (
+        <Text style={[styles.text, { color: "#F8FAFC" }]} />
+      ) : text ? (
+        <Text style={[styles.text, { color: "#F8FAFC" }]}>{text}</Text>
+      ) : null}
     </ButtonRaw>
   )
 })
@@ -121,6 +166,6 @@ const styles = StyleSheet.create({
 
     backgroundColor: "#1455FE",
     borderColor: "rgba(20, 85, 254, 0.2)",
-  }
+  },
 });
 

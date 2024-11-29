@@ -24,7 +24,7 @@ export default function CreateLessonPlanScreen() {
   })
 
   const router = useRouter()
-  const { mutateAsync } = useCreateLessonPlan()
+  const { mutateAsync, isPending } = useCreateLessonPlan()
 
   const onSubmit = async (data: any) => {
     const { grade, topic } = data;
@@ -70,6 +70,8 @@ export default function CreateLessonPlanScreen() {
                       { label: "8", value: "8" },
                       { label: "9", value: "9" },
                       { label: "10", value: "10" },
+                      { label: "11", value: "11" },
+                      { label: "12", value: "12" },
                     ]}
                   />
                 </FormControl>
@@ -102,7 +104,7 @@ export default function CreateLessonPlanScreen() {
             name="topic"
           />
 
-          <SubmitButton style={styles.submitBtn} text='Create Lesson Plan' onPress={handleSubmit(onSubmit)} />
+          <SubmitButton isLoading={isPending} style={styles.submitBtn} text='Create Lesson Plan' onPress={handleSubmit(onSubmit)} />
         </View>
       </View>
     </ScrollView >
@@ -113,6 +115,7 @@ export default function CreateLessonPlanScreen() {
 const TopContent = () => {
   return (
     <>
+      {/*
       <ActionBanner
         title='Personalize Lesson Plans'
         Description={(({ fontSize, color }) => {
@@ -123,6 +126,7 @@ const TopContent = () => {
         buttonText='Upload Lesson Plans'
         onPress={() => console.log('Upload Lesson Plans')}
       />
+    */}
 
       <ScreenBanner
         Icon={PencilRulerIcon}

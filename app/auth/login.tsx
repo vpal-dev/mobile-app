@@ -87,16 +87,16 @@ export default function LoginScreen() {
 
         <Button style={formStyles.loginBtn} text='Request otp' onPress={handleSubmit(onSubmit)} />
 
-        <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 5, marginTop: 20 }}>
-          <Text>By continuing, you agree to our</Text>
-          <Link href="/terms-of-service"><Text style={{ color: '#007AFF' }}>Terms of Service</Text></Link>
-          <Text>and</Text>
-          <Link href="/privacy-policy"><Text style={{ color: '#007AFF' }}>Privacy Policy</Text></Link>
+        <View style={termsStyles.container}>
+          <Text style={termsStyles.text}>By continuing, you agree to our</Text>
+          <Link href="/terms-of-service"><Text style={[termsStyles.text, { color: '#007AFF' }]}>Terms of Service</Text></Link>
+          <Text style={termsStyles.text}>and</Text>
+          <Link href="/privacy-policy"><Text style={[termsStyles.text, { color: '#007AFF' }]}>Privacy Policy</Text></Link>
         </View>
 
-        <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 5, }}>
-          <Text>for support, reach us out at</Text>
-          <Text style={{ color: '#007AFF' }}>support@loonshots.in</Text>
+        <View style={[termsStyles.container, { marginTop: 0 }]}>
+          <Text style={termsStyles.text}>for support, reach us out at</Text>
+          <Text style={[termsStyles.text, { color: '#007AFF' }]}>support@loonshots.in</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -151,3 +151,16 @@ const formStyles = StyleSheet.create({
   }
 });
 
+const termsStyles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 5,
+    marginTop: 20
+  },
+  text: {
+    fontFamily: 'Itim',
+    fontSize: 14,
+  }
+})

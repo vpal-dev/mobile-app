@@ -45,7 +45,7 @@ export default function OPTVerifyScreen() {
 
     client.invalidateQueries({ queryKey: ['active-user'] })
 
-    router.navigate('/home')
+    router.navigate('/auth/post-login')
   }
 
   return (

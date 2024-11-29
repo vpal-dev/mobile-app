@@ -27,7 +27,7 @@ export default function CreateScreen() {
   })
 
   const router = useRouter()
-  const { mutateAsync } = useGradePaper()
+  const { mutateAsync, isPending } = useGradePaper()
 
   const photos = watch('photos')
 
@@ -109,6 +109,8 @@ export default function CreateScreen() {
                       { label: "8", value: "8" },
                       { label: "9", value: "9" },
                       { label: "10", value: "10" },
+                      { label: "11", value: "11" },
+                      { label: "12", value: "12" },
                     ]}
                   />
                 </FormControl>
@@ -157,7 +159,7 @@ export default function CreateScreen() {
           </FormField>
 
 
-          <SubmitButton style={styles.submitBtn} text='Grade Papers' onPress={handleSubmit(onSubmit)} />
+          <SubmitButton isLoading={isPending} style={styles.submitBtn} text='Grade Papers' onPress={handleSubmit(onSubmit)} />
         </View>
       </View>
     </ScrollView>

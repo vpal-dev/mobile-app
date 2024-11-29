@@ -1,5 +1,5 @@
 import { ComponentProps } from "react"
-import { Platform, StyleProp, StyleSheet, Text, TextInput, TextStyle, View, ViewStyle } from "react-native"
+import { StyleProp, StyleSheet, Text, TextInput, TextStyle, View, ViewStyle } from "react-native"
 import { Container } from "./container"
 import { Picker } from "@react-native-picker/picker"
 

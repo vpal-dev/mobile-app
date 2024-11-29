@@ -25,7 +25,7 @@ export default function CreateQAScreen() {
   })
 
   const router = useRouter()
-  const { mutateAsync } = useGenerateQA()
+  const { mutateAsync, isPending } = useGenerateQA()
 
   const onSubmit = async (data: any) => {
     const { grade, noOfQuestions, type, topic } = data;
@@ -71,6 +71,8 @@ export default function CreateQAScreen() {
                       { label: "8", value: "8" },
                       { label: "9", value: "9" },
                       { label: "10", value: "10" },
+                      { label: "11", value: "11" },
+                      { label: "12", value: "12" },
                     ]}
                   />
                 </FormControl>
@@ -167,7 +169,7 @@ export default function CreateQAScreen() {
             name="topic"
           />
 
-          <SubmitButton style={styles.submitBtn} text='Generate Assessment' onPress={handleSubmit(onSubmit)} />
+          <SubmitButton isLoading={isPending} style={styles.submitBtn} text='Generate Assessment' onPress={handleSubmit(onSubmit)} />
         </View>
       </View>
     </ScrollView>

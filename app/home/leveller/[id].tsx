@@ -1,6 +1,7 @@
 import { BackButton } from '@/components/back-button/back-button';
-import { Button, ButtonRaw } from '@/components/ui/button';
-import { Container } from '@/components/ui/container';
+import { BottomActions } from '@/components/bottom-actions';
+import { SimpleCard } from '@/components/card/card';
+import { Button } from '@/components/ui/button';
 import { useGetLevelledAssignment } from '@/services/leveller';
 import { Link, useLocalSearchParams } from 'expo-router';
 import { useMemo } from 'react';
@@ -36,71 +37,14 @@ export default function SingleIDScreen() {
         </Link>
       </View>
 
-      <Container style={styles.titleContainer}>
-        <Text style={styles.title}>{data.title.trim()}</Text>
-        <Text style={styles.shortDescription}>{data.shortDescription}</Text>
-      </Container>
-
-
-      <Markdown style={{
-        body: {
-          // fontFamily: "Satoshi-500",
-        },
-        heading1: {
-          display: 'none',
-        },
-        heading2: {
-          fontSize: 16,
-          fontWeight: 700,
-          marginVertical: 10,
-          marginTop: 20
-        },
-        heading3: {
-          fontSize: 14,
-          fontWeight: 600,
-          marginVertical: 10,
-          marginTop: 20
-        }
-      }}>
-        {data.content}
-      </Markdown>
-
-
-      <View style={styles.seperator} />
-
-      <ButtonRaw style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, paddingVertical: 16 }}>
-        <Text style={{ fontWeight: 600, fontSize: 16, textDecorationStyle: "dotted", textDecorationLine: 'underline' }}>questionner</Text>
-        <Text>create homework assignment, small quiz question paper for this.</Text>
-      </ButtonRaw>
+      <SimpleCard title={data.title} description={data.shortDescription} />
+      <Markdown>{data.content}</Markdown>
+      <BottomActions />
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-  },
-  titleContainer: {
-    width: '100%',
-    marginVertical: 20,
-    gap: 6,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  shortDescription: {
-    fontSize: 12,
-    color: '#5A5A5A'
-  },
-  markdown: {
-    fontFamily: "Itim",
-  },
-  seperator: {
-    marginVertical: 20,
-    marginTop: 50,
-    width: '100%',
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(0,0,0,0.2)'
-  }
+  container: {}
 });
 
