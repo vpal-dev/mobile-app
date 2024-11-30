@@ -18,13 +18,13 @@ export const useGenerateQA = () => {
         noOfQuestions: data.noOfQuestions,
         type: data.type,
 
-        content: res?.content[0]?.text,
-        user_id: user?.user?.id
+        content: String(res?.content[0]?.text),
+        user_id: String(user?.user?.id)
       }).select('id').single();
 
       console.log("aq insert error", error)
 
-      return sData?.id;
+      return Number(sData?.id);
     }
   })
 }
@@ -33,7 +33,7 @@ export const useGetQAs = () => {
   return useQuery({
     queryKey: ['all-QAs'],
     queryFn: async () => {
-      const { data, error: _ } = await supabase.from('qa').select('*');
+      const { data, error: _ } = await supabase.from('qa').select('*').order('created_at', { ascending: false });
       return data
     },
   })

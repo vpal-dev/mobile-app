@@ -56,7 +56,7 @@ export const useLevelAssignment = () => {
 
       console.error("leveller insert error", _errors2)
 
-      return sData?.id;
+      return Number(sData?.id);
     }
   })
 }
@@ -65,7 +65,7 @@ export const useGetAllLevelledAssignments = () => {
   return useQuery({
     queryKey: ['all-levelled-assignments'],
     queryFn: async () => {
-      const { data, error: _ } = await supabase.from('leveller').select('*');
+      const { data, error: _ } = await supabase.from('leveller').select('*').order('created_at', { ascending: false });
       return data
     },
   })

@@ -49,13 +49,13 @@ export const useGradePaper = () => {
 
       const { data: sData, error: _errors2 } = await supabase.from('grade-papers').insert({
         grade: data.grade,
-        photos: [storedImgs?.fullPath],
+        photos: [String(storedImgs?.fullPath)],
 
-        content: res?.content[0]?.text,
-        user_id: user?.user?.id
+        content: String(res?.content[0]?.text),
+        user_id: String(user?.user?.id)
       }).select('id').single();
 
-      return sData?.id;
+      return Number(sData?.id);
     }
   })
 }
@@ -64,7 +64,7 @@ export const useGetAllGradedPapers = () => {
   return useQuery({
     queryKey: ['all-graded-papers'],
     queryFn: async () => {
-      const { data, error: _ } = await supabase.from('grade-papers').select('*');
+      const { data, error: _ } = await supabase.from('grade-papers').select('*').order('created_at', { ascending: false });
       return data
     },
   })

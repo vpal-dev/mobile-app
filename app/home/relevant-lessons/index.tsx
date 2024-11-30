@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
 import { useGetRelevantLessons } from '@/services/relevant-lessons';
 import { Link } from 'expo-router';
+import moment from 'moment';
 import { View, Text, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -23,13 +24,14 @@ export default function IndexScreen() {
 
       <ScrollView contentContainerStyle={styles.scrollView}>
         {!data?.length ? <Text>No revevant lessons generated yet </Text> : data?.map((d) => {
-          const { title, shortDescription } = JSON.parse(d.content);
+          const { title, shortDescription } = JSON.parse(d.content?.toString());
 
           return (
             <Link href={`/home/relevant-lessons/${d.id}`} key={d.id}>
               <Container style={{ display: 'flex', flexDirection: 'column', gap: 6, width: '100%' }}>
                 <Text style={{ fontSize: 16, fontWeight: '600' }}>{title}</Text>
                 <Text style={{ fontSize: 14, color: '#5A5A5A' }}>{shortDescription}</Text>
+                <Text style={{ fontSize: 12, color: '#5A5A5A' }}>{moment(d.created_at).fromNow()}</Text>
               </Container>
             </Link>
           )

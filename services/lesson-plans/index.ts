@@ -15,8 +15,8 @@ export const useCreateLessonPlan = () => {
       const { data: sData, error } = await supabase.from('lesson-plans').insert({
         grade: data.grade,
         topic: data.topic,
-        content: res?.content[0]?.text,
-        user_id: user?.user?.id,
+        content: String(res?.content[0]?.text),
+        user_id: String(user?.user?.id),
       }).select('id').single();
 
       console.log("lesson-plan insert error", error)
@@ -30,7 +30,7 @@ export const useGetLessonPlans = () => {
   return useQuery({
     queryKey: ['lesson-plans'],
     queryFn: async () => {
-      const { data, error: _ } = await supabase.from('lesson-plans').select('*');
+      const { data, error: _ } = await supabase.from('lesson-plans').select('*').order('created_at', { ascending: false });
       return data
     },
   })

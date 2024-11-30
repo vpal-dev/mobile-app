@@ -16,11 +16,11 @@ export const useGenerateRelevantLesson = () => {
         learningObjective: data.learningObjective,
         classProfile: data.classProfile,
 
-        content: res?.content[0]?.text,
-        user_id: user?.user?.id
+        content: String(res?.content[0]?.text),
+        user_id: String(user?.user?.id)
       }).select('id').single();
 
-      return sData?.id;
+      return Number(sData?.id)
     }
   })
 }
@@ -29,7 +29,7 @@ export const useGetRelevantLessons = () => {
   return useQuery({
     queryKey: ['all-relevant-lessons'],
     queryFn: async () => {
-      const { data, error: _ } = await supabase.from('relevant-lessons').select('*');
+      const { data, error: _ } = await supabase.from('relevant-lessons').select('*').order('created_at', { ascending: false });
       return data
     },
   })
