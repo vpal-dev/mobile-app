@@ -1,18 +1,16 @@
 import { Anthropic } from "@/utils/anthropic";
+import { gradePaperPrompt } from "@/utils/prompts";
+import { getUserHeaders } from "@/utils/user-headers";
+import { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const body = await request.json()
-  const { grade, photos } = body
+  const { photos } = body
 
-  const PROMPT = `
-  Grade the above provided finished assignment for ${grade}th grade.
-  Create it in markdown format. And provide feedback on the assignment. Suggest improvements and provide a grade.
-
-  create a JSON with \`title\`, \`shortDescription\` & \`content\` field. And only return a JSON, not simple text.
-  You are connected with a service that expects that you will only return a proper JSON.
-  `
+  const headers = getUserHeaders(request);
+  const PROMPT = gradePaperPrompt(headers, body);
 
   const msg = await Anthropic.message({
     messages: [

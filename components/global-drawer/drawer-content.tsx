@@ -1,12 +1,11 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { DrawerContentComponentProps } from "@react-navigation/drawer"
 import { Link, useRouter } from "expo-router"
-import { Alert, Image, Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
+import { Image, Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Button, ButtonRaw } from "../ui/button"
 import { LucideIcon } from "lucide-react-native"
-import { supabase } from "@/lib/supabase"
-import { useActiveUser } from "@/services/auth"
+import { useActiveUser, useLogout } from "@/services/auth"
 
 export const DrawerContent = (props: DrawerContentComponentProps) => {
   const { top, bottom } = useSafeAreaInsets()
@@ -16,10 +15,26 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
 
   const { state, descriptors } = props
 
+  const { mutate } = useLogout()
   const onLogoutPress = () => {
-    supabase.auth.signOut()
+    mutate()
     router.navigate('/auth/login')
   }
+
+  const onProfilePress = () => {
+    router.navigate('/profile')
+  }
+
+  const userName = useMemo(() => {
+    const name = data?.user?.user_metadata?.full_name
+    const phone = "+" + data?.user?.phone
+
+    if (name) {
+      return `${name} (${phone})`
+    }
+
+    return phone
+  }, [data])
 
   return (
     <View style={{ flex: 1, paddingTop: top, paddingBottom: bottom, marginVertical: Platform.OS === 'android' ? 20 : 0 }}>
@@ -85,8 +100,8 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
         {
           data?.user ? (
             <>
-              <ButtonRaw style={footerStyles.button} onPress={() => Alert.alert("hello")}>
-                <Text style={footerStyles.buttonText}>{isLoading ? '...' : '+' + data?.user?.phone}</Text>
+              <ButtonRaw style={footerStyles.button} onPress={onProfilePress}>
+                <Text style={footerStyles.buttonText}>{isLoading ? '...' : userName}</Text>
               </ButtonRaw>
 
               <Pressable style={{ marginLeft: 'auto', marginRight: 12 }} onPress={onLogoutPress}>

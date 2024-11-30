@@ -1,11 +1,10 @@
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useForm, Controller } from "react-hook-form"
 import { FormControl, FormField, FormInput, FormLabel } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { supabase } from '@/lib/supabase';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useQueryClient } from '@tanstack/react-query';
+import { useOTPVerify } from '@/services/auth';
 
 export default function OPTVerifyScreen() {
   const { bottom } = useSafeAreaInsets();
@@ -24,28 +23,13 @@ export default function OPTVerifyScreen() {
     },
   })
 
-  const client = useQueryClient()
+  const { mutateAsync } = useOTPVerify()
 
   const onSubmit = async (data: any) => {
     const otp = data.otp;
 
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.verifyOtp({
-      phone: String(phoneNo),
-      token: otp,
-      type: 'sms',
-    })
-
-    if (error) {
-      Alert.alert(error.message)
-      return
-    }
-
-    client.invalidateQueries({ queryKey: ['active-user'] })
-
-    router.navigate('/auth/post-login')
+    await mutateAsync({ otp, phoneNo: String(phoneNo) });
+    router.navigate('/profile')
   }
 
   return (

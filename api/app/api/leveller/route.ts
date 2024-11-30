@@ -1,18 +1,16 @@
 import { Anthropic } from "@/utils/anthropic";
+import { levellerPrompt } from "@/utils/prompts";
+import { getUserHeaders } from "@/utils/user-headers";
+import { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const body = await request.json()
-  const { grade, description, photos } = body
+  const { photos } = body
 
-  const PROMPT = `
-  Recreate the above provided assessment for ${grade}th grade to align with "${description}".
-  Create it in markdown format.
-
-  create a JSON with \`title\`, \`shortDescription\` & \`content\` field. And only return a JSON, not simple text.
-  You are connected with a service that expects that you will only return a proper JSON.
-  `
+  const headers = getUserHeaders(request);
+  const PROMPT = levellerPrompt(headers, body);
 
   const msg = await Anthropic.message({
     messages: [

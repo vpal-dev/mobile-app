@@ -6,9 +6,12 @@ import { useRouter } from 'expo-router';
 import { PencilRulerIcon } from 'lucide-react-native';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
-import { useCollectUserInfo } from '@/services/auth';
+import { useActiveUser, useCollectUserInfo } from '@/services/auth';
 
-export default function CreateTeacherForm() {
+export default function Profile() {
+  const { data } = useActiveUser();
+  const metadata = data?.user?.user_metadata;
+
   const {
     control,
     handleSubmit,
@@ -16,10 +19,10 @@ export default function CreateTeacherForm() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: '',
-      subject: '',
-      board: 'CBSE',
-      state_board: '',
+      name: metadata?.name || '',
+      subject: metadata?.subject || '',
+      board: metadata?.board || 'CBSE',
+      state_board: metadata?.state_board || '',
     },
   });
 
@@ -30,7 +33,6 @@ export default function CreateTeacherForm() {
   const onSubmit = async (data: any) => {
     console.log(data);
     await mutateAsync(data);
-
     router.navigate('/home');
   };
 
@@ -161,7 +163,7 @@ export default function CreateTeacherForm() {
 const TopContent = () => (
   <ScreenBanner
     Icon={PencilRulerIcon}
-    title="Teacher Form"
+    title="Profile"
     subtitle="Fill in your details"
     description="Provide your name, subject, and board information."
   />

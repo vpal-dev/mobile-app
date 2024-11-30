@@ -30,6 +30,7 @@ export default function AllLessons() {
               <Container style={{ display: 'flex', flexDirection: 'column', gap: 6, width: '100%' }}>
                 <Text style={{ fontSize: 16, fontWeight: '600' }}>{title}</Text>
                 <Text style={{ fontSize: 14, color: '#5A5A5A' }}>{shortDescription}</Text>
+                <Text style={{ fontSize: 12, color: '#5A5A5A' }}>{lesson.created_at}</Text>
               </Container>
             </Link>
           )

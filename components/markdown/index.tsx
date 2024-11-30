@@ -18,10 +18,16 @@ export const Markdown = ({ children }: MarkdownProps) => {
         fontWeight: 700,
         marginVertical: 10,
         marginTop: 20
+      },
+      heading3: {
+        fontSize: 14,
+        fontWeight: 700,
+        marginVertical: 10,
+        marginTop: 20
       }
     }}>
       {children}
-    </MarkdownD>
+    </MarkdownD >
 
   )
 }

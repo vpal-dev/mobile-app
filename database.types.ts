@@ -9,9 +9,36 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      "grade-papers": {
+        Row: {
+          content: Json | null
+          created_at: string
+          grade: number | null
+          id: number
+          photos: string[] | null
+          user_id: string | null
+        }
+        Insert: {
+          content?: Json | null
+          created_at?: string
+          grade?: number | null
+          id?: number
+          photos?: string[] | null
+          user_id?: string | null
+        }
+        Update: {
+          content?: Json | null
+          created_at?: string
+          grade?: number | null
+          id?: number
+          photos?: string[] | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       "lesson-plans": {
         Row: {
-          content: string | null
+          content: Json | null
           created_at: string
           grade: number | null
           id: number
@@ -19,7 +46,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
-          content?: string | null
+          content?: Json | null
           created_at?: string
           grade?: number | null
           id?: number
@@ -27,11 +54,101 @@ export type Database = {
           user_id: string
         }
         Update: {
-          content?: string | null
+          content?: Json | null
           created_at?: string
           grade?: number | null
           id?: number
           topic?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      leveller: {
+        Row: {
+          content: Json | null
+          created_at: string
+          description: string | null
+          grade: number | null
+          id: number
+          photos: string[] | null
+          user_id: string | null
+        }
+        Insert: {
+          content?: Json | null
+          created_at?: string
+          description?: string | null
+          grade?: number | null
+          id?: number
+          photos?: string[] | null
+          user_id?: string | null
+        }
+        Update: {
+          content?: Json | null
+          created_at?: string
+          description?: string | null
+          grade?: number | null
+          id?: number
+          photos?: string[] | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      qa: {
+        Row: {
+          content: Json | null
+          created_at: string
+          grade: number | null
+          id: number
+          noOfQuestions: number | null
+          topic: string | null
+          type: string | null
+          user_id: string
+        }
+        Insert: {
+          content?: Json | null
+          created_at?: string
+          grade?: number | null
+          id?: number
+          noOfQuestions?: number | null
+          topic?: string | null
+          type?: string | null
+          user_id: string
+        }
+        Update: {
+          content?: Json | null
+          created_at?: string
+          grade?: number | null
+          id?: number
+          noOfQuestions?: number | null
+          topic?: string | null
+          type?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      "relevant-lessons": {
+        Row: {
+          classProfile: string | null
+          content: Json | null
+          created_at: string
+          id: number
+          learningObjective: string | null
+          user_id: string
+        }
+        Insert: {
+          classProfile?: string | null
+          content?: Json | null
+          created_at?: string
+          id?: number
+          learningObjective?: string | null
+          user_id: string
+        }
+        Update: {
+          classProfile?: string | null
+          content?: Json | null
+          created_at?: string
+          id?: number
+          learningObjective?: string | null
           user_id?: string
         }
         Relationships: []

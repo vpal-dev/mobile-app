@@ -16,12 +16,12 @@ export const useCreateLessonPlan = () => {
         grade: data.grade,
         topic: data.topic,
         content: res?.content[0]?.text,
-        user_id: user?.user?.id
+        user_id: user?.user?.id,
       }).select('id').single();
 
       console.log("lesson-plan insert error", error)
 
-      return sData?.id;
+      return Number(sData?.id);
     }
   })
 }

@@ -4,7 +4,7 @@ import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { PostHogProvider } from 'posthog-react-native'
+import { PostHogProvider, usePostHog } from 'posthog-react-native'
 
 import 'react-native-reanimated';
 
@@ -13,7 +13,6 @@ import { GlobalDrawer } from '@/components/global-drawer';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@/lib/query-client';
 import { supabase } from '@/lib/supabase';
-import { Session } from '@supabase/supabase-js';
 import { Alert, Text } from 'react-native';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -21,16 +20,18 @@ SplashScreen.preventAutoHideAsync();
 
 const AuthPass = () => {
   const [isSessionLoading, setIsSessionLoading] = useState(true)
-  const [session, setSession] = useState<Session | null>(null)
-
-  const router = useRouter()
+  const posthog = usePostHog();
 
   useEffect(() => {
     const fetchSession = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();
-        setSession(session);
         setIsSessionLoading(false);
+
+        // identify for analytics
+        posthog.identify(session?.user?.id, {
+          name: session?.user?.user_metadata?.full_name,
+        });
 
         if (!session) {
           // router.push('/auth/login');
@@ -45,7 +46,6 @@ const AuthPass = () => {
     fetchSession();
 
     const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
       setIsSessionLoading(false);
 
       if (!session) {
@@ -180,3 +180,4 @@ export default function RootLayout() {
     </ThemeProvider>
   );
 }
+
