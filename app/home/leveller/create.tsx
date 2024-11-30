@@ -10,6 +10,7 @@ import { FEATURES_DATA } from '@/constants/features-data';
 import * as ImagePicker from 'expo-image-picker';
 import { useLevelAssignment } from '@/services/leveller';
 import { ControlledGradeInput, ControlledPhotoUpload, ControlledTextInput } from '@/components/common-inputs';
+import { AuthButtonWrapper } from '@/components/auth-btn-wrapper';
 
 export default function CreateScreen() {
   const {
@@ -64,7 +65,9 @@ export default function CreateScreen() {
             placeholder='make it for a 6th standard ADHD student'
           />
 
-          <SubmitButton isLoading={isPending} style={styles.submitBtn} text='Generate Variation' onPress={handleSubmit(onSubmit)} />
+          <AuthButtonWrapper>
+            <SubmitButton isLoading={isPending} style={styles.submitBtn} text='Generate Variation' onPress={handleSubmit(onSubmit)} />
+          </AuthButtonWrapper>
         </View>
       </View>
     </ScrollView>

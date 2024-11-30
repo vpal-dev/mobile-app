@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { FEATURES_DATA } from '@/constants/features-data';
 import { useGenerateQA } from '@/services/generate-qa';
 import { ControlledGradeInput, ControlledSelectInput, ControlledTextInput } from '@/components/common-inputs';
+import { AuthButtonWrapper } from '@/components/auth-btn-wrapper';
 
 export default function CreateQAScreen() {
   const {
@@ -92,7 +93,9 @@ export default function CreateQAScreen() {
             errors={errors}
           />
 
-          <SubmitButton isLoading={isPending} style={styles.submitBtn} text='Generate Assessment' onPress={handleSubmit(onSubmit)} />
+          <AuthButtonWrapper>
+            <SubmitButton isLoading={isPending} style={styles.submitBtn} text='Generate Assessment' onPress={handleSubmit(onSubmit)} />
+          </AuthButtonWrapper>
         </View>
       </View>
     </ScrollView>

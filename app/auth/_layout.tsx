@@ -21,6 +21,20 @@ export default function AuthLayout() {
           title: 'OTP Verify',
         }}
       />
+
+      <Stack.Screen
+        name="privacy-policy"
+        options={{
+          title: 'Privacy Policy',
+        }}
+      />
+
+      <Stack.Screen
+        name="terms-of-service"
+        options={{
+          title: 'Terms of Service',
+        }}
+      />
     </Stack>
   );
 }

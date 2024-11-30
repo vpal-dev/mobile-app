@@ -3,8 +3,9 @@ import { useForm, Controller } from "react-hook-form"
 import { FormControl, FormField, FormInput, FormLabel } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Link, useLocalSearchParams, useRouter } from 'expo-router';
 import { useOTPVerify } from '@/services/auth';
+import { BackButton } from '@/components/back-button/back-button';
 
 export default function OPTVerifyScreen() {
   const { bottom } = useSafeAreaInsets();
@@ -34,12 +35,16 @@ export default function OPTVerifyScreen() {
 
   return (
     <View style={styles.container}>
+      <View style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <BackButton />
+      </View>
+
       <View style={[formStyles.container, { paddingBottom: bottom }]}>
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <FormField>
-              <FormLabel>OTP</FormLabel>
+              <FormLabel>OTP ({String(phoneNo)})</FormLabel>
               <FormControl style={formStyles.control}>
                 <FormInput
                   style={{ flex: 1 }}

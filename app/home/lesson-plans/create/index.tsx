@@ -10,6 +10,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useCreateLessonPlan } from '@/services/lesson-plans';
 import { FEATURES_DATA } from '@/constants/features-data';
 import { ControlledGradeInput } from '@/components/common-inputs';
+import { AuthButtonWrapper } from '@/components/auth-btn-wrapper';
 
 export default function CreateLessonPlanScreen() {
   const {
@@ -72,7 +73,9 @@ export default function CreateLessonPlanScreen() {
             name="topic"
           />
 
-          <SubmitButton isLoading={isPending} style={styles.submitBtn} text='Create Lesson Plan' onPress={handleSubmit(onSubmit)} />
+          <AuthButtonWrapper>
+            <SubmitButton isLoading={isPending} style={styles.submitBtn} text='Create Lesson Plan' onPress={handleSubmit(onSubmit)} />
+          </AuthButtonWrapper>
         </View>
       </View>
     </ScrollView >

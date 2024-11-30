@@ -7,7 +7,10 @@ export const BackButton = () => {
   return (
     <Button
       text='Back'
-      onPress={() => router.back()}
+      onPress={() => {
+        console.log("canGoBack", router.canGoBack())
+        router.back()
+      }}
     />
   )
 }

@@ -10,6 +10,7 @@ import { FEATURES_DATA } from '@/constants/features-data';
 import { useGradePaper } from '@/services/grade-papers';
 import * as ImagePicker from 'expo-image-picker';
 import { ControlledGradeInput, ControlledPhotoUpload } from '@/components/common-inputs';
+import { AuthButtonWrapper } from '@/components/auth-btn-wrapper';
 
 export default function CreateScreen() {
   const {
@@ -67,7 +68,9 @@ export default function CreateScreen() {
             setValue={setValue}
           />
 
-          <SubmitButton isLoading={isPending} text='Grade Papers' onPress={handleSubmit(onSubmit)} />
+          <AuthButtonWrapper>
+            <SubmitButton isLoading={isPending} text='Grade Papers' onPress={handleSubmit(onSubmit)} />
+          </AuthButtonWrapper>
         </View>
       </View>
     </ScrollView>

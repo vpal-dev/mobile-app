@@ -89,9 +89,9 @@ export default function LoginScreen() {
 
         <View style={termsStyles.container}>
           <Text style={termsStyles.text}>By continuing, you agree to our</Text>
-          <Link href="/terms-of-service"><Text style={[termsStyles.text, { color: '#007AFF' }]}>Terms of Service</Text></Link>
+          <Link href="/auth/terms-of-service"><Text style={[termsStyles.text, { color: '#007AFF' }]}>Terms of Service</Text></Link>
           <Text style={termsStyles.text}>and</Text>
-          <Link href="/privacy-policy"><Text style={[termsStyles.text, { color: '#007AFF' }]}>Privacy Policy</Text></Link>
+          <Link href="/auth/privacy-policy"><Text style={[termsStyles.text, { color: '#007AFF' }]}>Privacy Policy</Text></Link>
         </View>
 
         <View style={[termsStyles.container, { marginTop: 0 }]}>
