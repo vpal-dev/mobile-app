@@ -23,7 +23,7 @@ export default function AllLessons() {
 
       <ScrollView contentContainerStyle={styles.scrollView}>
         {data?.map((lesson) => {
-          const { title, shortDescription } = JSON.parse(lesson.content);
+          const { title, shortDescription } = JSON.parse(lesson.content.toString());
 
           return (
             <Link href={`/home/lesson-plans/${lesson.id}`} key={lesson.id}>

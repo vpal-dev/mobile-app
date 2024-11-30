@@ -11,144 +11,144 @@ export type Database = {
     Tables: {
       "grade-papers": {
         Row: {
-          content: Json | null
+          content: Json
           created_at: string
-          grade: number | null
+          grade: number
           id: number
-          photos: string[] | null
+          photos: string[]
           user_id: string | null
         }
         Insert: {
-          content?: Json | null
+          content: Json
           created_at?: string
-          grade?: number | null
+          grade: number
           id?: number
-          photos?: string[] | null
+          photos: string[]
           user_id?: string | null
         }
         Update: {
-          content?: Json | null
+          content?: Json
           created_at?: string
-          grade?: number | null
+          grade?: number
           id?: number
-          photos?: string[] | null
+          photos?: string[]
           user_id?: string | null
         }
         Relationships: []
       }
       "lesson-plans": {
         Row: {
-          content: Json | null
+          content: Json
           created_at: string
-          grade: number | null
+          grade: number
           id: number
-          topic: string | null
+          topic: string
           user_id: string
         }
         Insert: {
-          content?: Json | null
+          content: Json
           created_at?: string
-          grade?: number | null
+          grade: number
           id?: number
-          topic?: string | null
+          topic: string
           user_id: string
         }
         Update: {
-          content?: Json | null
+          content?: Json
           created_at?: string
-          grade?: number | null
+          grade?: number
           id?: number
-          topic?: string | null
+          topic?: string
           user_id?: string
         }
         Relationships: []
       }
       leveller: {
         Row: {
-          content: Json | null
+          content: Json
           created_at: string
-          description: string | null
-          grade: number | null
+          description: string
+          grade: number
           id: number
-          photos: string[] | null
+          photos: string[]
           user_id: string | null
         }
         Insert: {
-          content?: Json | null
+          content: Json
           created_at?: string
-          description?: string | null
-          grade?: number | null
+          description: string
+          grade: number
           id?: number
-          photos?: string[] | null
+          photos: string[]
           user_id?: string | null
         }
         Update: {
-          content?: Json | null
+          content?: Json
           created_at?: string
-          description?: string | null
-          grade?: number | null
+          description?: string
+          grade?: number
           id?: number
-          photos?: string[] | null
+          photos?: string[]
           user_id?: string | null
         }
         Relationships: []
       }
       qa: {
         Row: {
-          content: Json | null
+          content: Json
           created_at: string
-          grade: number | null
+          grade: number
           id: number
-          noOfQuestions: number | null
-          topic: string | null
-          type: string | null
+          noOfQuestions: number
+          topic: string
+          type: string
           user_id: string
         }
         Insert: {
-          content?: Json | null
+          content: Json
           created_at?: string
-          grade?: number | null
+          grade: number
           id?: number
-          noOfQuestions?: number | null
-          topic?: string | null
-          type?: string | null
+          noOfQuestions: number
+          topic: string
+          type: string
           user_id: string
         }
         Update: {
-          content?: Json | null
+          content?: Json
           created_at?: string
-          grade?: number | null
+          grade?: number
           id?: number
-          noOfQuestions?: number | null
-          topic?: string | null
-          type?: string | null
+          noOfQuestions?: number
+          topic?: string
+          type?: string
           user_id?: string
         }
         Relationships: []
       }
       "relevant-lessons": {
         Row: {
-          classProfile: string | null
-          content: Json | null
+          classProfile: string
+          content: Json
           created_at: string
           id: number
-          learningObjective: string | null
+          learningObjective: string
           user_id: string
         }
         Insert: {
-          classProfile?: string | null
-          content?: Json | null
+          classProfile: string
+          content: Json
           created_at?: string
           id?: number
-          learningObjective?: string | null
+          learningObjective: string
           user_id: string
         }
         Update: {
-          classProfile?: string | null
-          content?: Json | null
+          classProfile?: string
+          content?: Json
           created_at?: string
           id?: number
-          learningObjective?: string | null
+          learningObjective?: string
           user_id?: string
         }
         Relationships: []
