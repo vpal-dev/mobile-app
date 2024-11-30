@@ -2,13 +2,13 @@ import React from 'react';
 import { BackButton } from '@/components/back-button/back-button';
 import { ScreenBanner } from '@/components/screen-banner';
 import { Button, SubmitButton } from '@/components/ui/button';
-import { FormControl, FormField, FormFieldMessage, FormInput, FormLabel, FormSelect } from '@/components/ui/form';
 import { Link, useRouter } from 'expo-router';
 import { PencilRulerIcon } from 'lucide-react-native';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { Controller, useForm } from 'react-hook-form';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { useForm } from 'react-hook-form';
 import { FEATURES_DATA } from '@/constants/features-data';
 import { useGenerateQA } from '@/services/generate-qa';
+import { ControlledGradeInput, ControlledSelectInput, ControlledTextInput } from '@/components/common-inputs';
 
 export default function CreateQAScreen() {
   const {
@@ -47,126 +47,49 @@ export default function CreateQAScreen() {
         <TopContent />
 
         <View>
-          <Controller
+          <ControlledGradeInput control={control} errors={errors} name="grade" />
+          <ControlledSelectInput
             control={control}
             rules={{
               required: true,
             }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <FormField>
-                <FormLabel>Grade</FormLabel>
-                <FormControl>
-                  <FormSelect
-                    value={String(value)}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    options={[
-                      { label: "1", value: "1" },
-                      { label: "2", value: "2" },
-                      { label: "3", value: "3" },
-                      { label: "4", value: "4" },
-                      { label: "5", value: "5" },
-                      { label: "6", value: "6" },
-                      { label: "7", value: "7" },
-                      { label: "8", value: "8" },
-                      { label: "9", value: "9" },
-                      { label: "10", value: "10" },
-                      { label: "11", value: "11" },
-                      { label: "12", value: "12" },
-                    ]}
-                  />
-                </FormControl>
-
-                <FormFieldMessage>
-                  {errors.grade && 'This is required.'}
-                </FormFieldMessage>
-              </FormField>
-            )}
-            name="grade"
-          />
-
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <FormField>
-                <FormLabel>No of Questions</FormLabel>
-                <FormControl>
-                  <FormSelect
-                    value={String(value)}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    options={[
-                      { label: "1", value: "1" },
-                      { label: "2", value: "2" },
-                      { label: "3", value: "3" },
-                      { label: "4", value: "4" },
-                      { label: "5", value: "5" },
-                      { label: "6", value: "6" },
-                      { label: "7", value: "7" },
-                      { label: "8", value: "8" }
-                    ]}
-                  />
-                </FormControl>
-
-                <FormFieldMessage>
-                  {errors.grade && 'This is required.'}
-                </FormFieldMessage>
-              </FormField>
-            )}
+            options={[
+              { label: "1", value: "1" },
+              { label: "2", value: "2" },
+              { label: "3", value: "3" },
+              { label: "4", value: "4" },
+              { label: "5", value: "5" },
+              { label: "6", value: "6" },
+              { label: "7", value: "7" },
+              { label: "8", value: "8" }
+            ]}
             name="noOfQuestions"
+            errors={errors}
+            label='Number of Questions'
           />
-
-
-          <Controller
+          <ControlledSelectInput
             control={control}
             rules={{
               required: true,
             }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <FormField>
-                <FormLabel>Type of Assessment</FormLabel>
-                <FormControl>
-                  <FormSelect
-                    value={String(value)}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    options={[
-                      { label: "MCQ", value: "mcq" },
-                      { label: "Quiz", value: "quiz" },
-                      { label: "Long Form", value: "long form" },
-                    ]}
-                  />
-                </FormControl>
-
-                <FormFieldMessage>
-                  {errors.grade && 'This is required.'}
-                </FormFieldMessage>
-              </FormField>
-            )}
+            label="Type of Assessment"
+            options={[
+              { label: "MCQ", value: "mcq" },
+              { label: "Quiz", value: "quiz" },
+              { label: "Long Form", value: "long form" },
+            ]}
             name="type"
+            errors={errors}
           />
-
-          <Controller
+          <ControlledTextInput
             control={control}
             rules={{
               required: true,
             }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <FormField>
-                <FormLabel>What would you like to create for?</FormLabel>
-                <FormControl>
-                  <FormInput placeholder="quadratic equations" value={value} onBlur={onBlur} onChangeText={onChange} />
-                </FormControl>
-                <FormFieldMessage>
-                  {errors.topic && 'This is required.'}
-                </FormFieldMessage>
-              </FormField>
-
-            )}
             name="topic"
+            label='Topic'
+            placeholder='quadratic equations'
+            errors={errors}
           />
 
           <SubmitButton isLoading={isPending} style={styles.submitBtn} text='Generate Assessment' onPress={handleSubmit(onSubmit)} />

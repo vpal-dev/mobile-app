@@ -1,15 +1,15 @@
 import React from 'react';
-import { ActionBanner } from '@/components/action-banner';
 import { BackButton } from '@/components/back-button/back-button';
 import { ScreenBanner } from '@/components/screen-banner';
 import { Button, SubmitButton } from '@/components/ui/button';
-import { FormControl, FormField, FormFieldMessage, FormInput, FormLabel, FormSelect } from '@/components/ui/form';
+import { FormControl, FormField, FormFieldMessage, FormInput, FormLabel } from '@/components/ui/form';
 import { Link, useRouter } from 'expo-router';
 import { PencilRulerIcon } from 'lucide-react-native';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import { useCreateLessonPlan } from '@/services/lesson-plans';
 import { FEATURES_DATA } from '@/constants/features-data';
+import { ControlledGradeInput } from '@/components/common-inputs';
 
 export default function CreateLessonPlanScreen() {
   const {
@@ -46,41 +46,9 @@ export default function CreateLessonPlanScreen() {
         <TopContent />
 
         <View>
-          <Controller
+          <ControlledGradeInput
             control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <FormField>
-                <FormLabel>Grade</FormLabel>
-                <FormControl>
-                  <FormSelect
-                    value={String(value)}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    options={[
-                      { label: "1", value: "1" },
-                      { label: "2", value: "2" },
-                      { label: "3", value: "3" },
-                      { label: "4", value: "4" },
-                      { label: "5", value: "5" },
-                      { label: "6", value: "6" },
-                      { label: "7", value: "7" },
-                      { label: "8", value: "8" },
-                      { label: "9", value: "9" },
-                      { label: "10", value: "10" },
-                      { label: "11", value: "11" },
-                      { label: "12", value: "12" },
-                    ]}
-                  />
-                </FormControl>
-
-                <FormFieldMessage>
-                  {errors.grade && 'This is required.'}
-                </FormFieldMessage>
-              </FormField>
-            )}
+            errors={errors}
             name="grade"
           />
 

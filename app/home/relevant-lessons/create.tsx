@@ -2,13 +2,13 @@ import React from 'react';
 import { BackButton } from '@/components/back-button/back-button';
 import { ScreenBanner } from '@/components/screen-banner';
 import { Button, SubmitButton } from '@/components/ui/button';
-import { FormControl, FormField, FormFieldMessage, FormInput, FormLabel } from '@/components/ui/form';
 import { Link, useRouter } from 'expo-router';
 import { PencilRulerIcon } from 'lucide-react-native';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { FEATURES_DATA } from '@/constants/features-data';
 import { useGenerateRelevantLesson } from '@/services/relevant-lessons';
+import { ControlledTextInput } from '@/components/common-inputs';
 
 export default function CreateScreen() {
   const {
@@ -45,57 +45,25 @@ export default function CreateScreen() {
         <TopContent />
 
         <View>
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <FormField>
-                <FormLabel>Learning Objective</FormLabel>
-                <FormControl>
-                  <FormInput
-                    style={{ height: 100 }}
-                    placeholder="e.g., Calculating the average rate of change of a polynomial between two points..."
-                    value={value}
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                  />
-                </FormControl>
-                <FormFieldMessage>
-                  {errors.learningObjective && 'This is required.'}
-                </FormFieldMessage>
-              </FormField>
-
-            )}
+          <ControlledTextInput
             name="learningObjective"
-          />
-
-
-          <Controller
             control={control}
             rules={{
               required: true,
             }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <FormField>
-                <FormLabel>Class Profile</FormLabel>
-                <FormControl>
-                  <FormInput
-                    style={{ height: 100 }}
-                    placeholder="e.g., Many students in my 6th grade class are big soccer fans..."
-                    value={value}
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                  />
-                </FormControl>
-                <FormFieldMessage>
-                  {errors.learningObjective && 'This is required.'}
-                </FormFieldMessage>
-              </FormField>
-
-            )}
+            label="Learning Objective"
+            placeholder="e.g., Calculating the average rate of change of a polynomial between two points..."
+            errors={errors}
+          />
+          <ControlledTextInput
             name="classProfile"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            label="Class Profile"
+            placeholder="e.g., Many students in my 6th grade class are big soccer fans..."
+            errors={errors}
           />
 
           <SubmitButton isLoading={isPending} style={styles.submitBtn} text='Generate Relevant Plan' onPress={handleSubmit(onSubmit)} />
