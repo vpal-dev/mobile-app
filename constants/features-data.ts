@@ -1,37 +1,37 @@
 import { FeatureBoxProps } from "@/components/feature-box";
-import { BookCheckIcon, BookUp2Icon, FileCheck2Icon, PencilRulerIcon, ScrollTextIcon } from "lucide-react-native";
+import { BookCheckIcon, BookUp2Icon, BoxesIcon, FileCheck2Icon, PencilRulerIcon, ScrollTextIcon, ShapesIcon } from "lucide-react-native";
 
-type FeaturesKeys = 'LESSON_PLANS' | 'GENERATE_QA' | 'RELEVANT_LESSON_PLANS' | 'GRADE_PAPERS' | 'LEVELLER'
+type FeaturesKeys =
+  'LESSON_PLANS' |
+  'GENERATE_QA' |
+  'RELEVANT_LESSON_PLANS' |
+  'GRADE_PAPERS' |
+  'LEVELLER' |
+  'RUBRICS' |
+  'DIFFERENTLY_ABLED'
 export type FeatureType = "create" | "check" | "differentiate"
 export type FeatureDataItem = FeatureBoxProps & { feature_type: FeatureType, id: string, path: string }
-
 
 export const FEATURES_DATA: Record<FeaturesKeys, FeatureDataItem> = {
   LESSON_PLANS: {
     id: 'lesson-plans-index',
     path: '/home/lesson-plans/create',
     color: "#BBDBED",
-    title: 'Create Lessons Plans in 2 mins',
+    title: 'Create Lessons Plan',
     subtitle: 'used by teachers 5000 times',
     Icon: PencilRulerIcon,
     feature_type: "create",
-    description: `Simply input your topic and requirements, and 
-Vpal generates detailed lesson plans with objectives, activities, and assessments. 
-Customise as needed and save your preferred templates.`
+    description: `Generate a lesson plan for a topic or objective you are teaching`
   },
   GENERATE_QA: {
     id: 'generate-qa',
     path: '/home/generate-qa/create',
     color: "#EFCEC8",
-    title: 'Generate assessments',
+    title: 'Question paper',
     subtitle: 'used by teachers 5000 times',
     Icon: ScrollTextIcon,
     feature_type: "create",
-    description: `
-Tell Vpal your subject, topic, and difficulty level. 
-Get balanced question papers with marking schemes instantly, 
-following your school's format and curriculum requirements.
-    `
+    description: `Generate question papers and marking schemes for assessments, unit tests, half-yearly or final exams`
   },
   RELEVANT_LESSON_PLANS: {
     id: 'relevant-lesson-plans',
@@ -41,34 +41,46 @@ following your school's format and curriculum requirements.
     subtitle: 'used by teachers 5000 times',
     Icon: BookCheckIcon,
     feature_type: "differentiate",
-    description: `
-Vpal helps create engaging plans by suggesting real-world examples, local context, and interactive activities.
-Keep your content fresh and relatable for today's students.
-    `
+    description: `Customize your lesson plan by making it relevant for your students with real-world examples`
   },
   GRADE_PAPERS: {
     id: 'grade-papers',
     path: '/home/grade-papers/create',
     color: "#C9BBED",
-    title: 'Grade Papers',
+    title: 'Grade Question Papers',
     subtitle: 'used by teachers 5000 times',
     Icon: FileCheck2Icon,
     feature_type: "check",
-    description: `
-Upload student responses and answer scripts and let VPal handle the grading using your marking scheme.
-Get consistent evaluation and detailed feedback suggestions for each student.
-    `
+    description: `Upload student responses and answer scripts and let Vpal handle the grading. Get detailed feedback and suggestions on each student`
   },
   LEVELLER: {
     id: 'leveller',
     path: '/home/leveller/create',
     color: "#EDBBC5",
-    title: 'Leveller',
+    title: 'Content leveller',
     subtitle: 'used by teachers 5000 times',
     Icon: BookUp2Icon,
     feature_type: 'differentiate',
-    description: `
-Make the assessment easy, medium & hard for different students.
-    `
+    description: `Make the content easy/difficult/hard`
+  },
+  RUBRICS: {
+    id: 'rubrics',
+    path: '/home/rubrics/create',
+    color: "#C2EDBB",
+    title: 'Create Rubrics',
+    subtitle: 'used by teachers 5000 times',
+    Icon: BoxesIcon,
+    feature_type: 'create',
+    description: `Write a Rubric for an assignment you are creating for a class`
+  },
+  DIFFERENTLY_ABLED: {
+    id: 'differently-abled',
+    path: '/home/differently-abled/create',
+    color: "#FFDBAE",
+    title: 'Gifted Students',
+    subtitle: 'used by teachers 5000 times',
+    Icon: ShapesIcon,
+    feature_type: 'differentiate',
+    description: `Differentiate content for gifted students`
   },
 }

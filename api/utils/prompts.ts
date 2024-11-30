@@ -14,8 +14,8 @@ It is connected with a service that expects that you will only return a proper J
 /* **************************************************************************************** */
 
 type UserDetail = {
-  board: string,
   subject: string,
+  board: string,
   state_board: string
 }
 
@@ -130,6 +130,50 @@ Please include:
 ${JSON_PROMPT}
 `
 
+export const createRubricsPrompt = (
+  { board, subject }: UserDetail,
+  { grade, topic }: { grade: string, topic: string }
+) => `
+Create a rubric for:
+- Board: ${board}
+- Subject: ${subject}
+- Grade: ${grade}
+- Topic: ${topic}
+
+Please include:
+- Clear criteria
+- Descriptors for each level
+- Weightage for each criterion
+- Examples for each level
+- Alignment with learning objectives
+- Consistency in scoring
+- Feedback guidelines
+
+${JSON_PROMPT}
+`
+
+export const createDifferentlyAbledLessonPlanPrompt = (
+  { board, subject }: UserDetail,
+  { grade, topic, disability }: { grade: string, topic: string, disability: string }
+) => `
+Create a lesson plan for:
+- Board: ${board}
+- Subject: ${subject}
+- Grade: ${grade}
+- Topic: ${topic}
+- Disability: ${disability}
+
+Please include:
+- Differentiated instruction
+- Accommodations and modifications
+- Assistive technology integration
+- Sensory-friendly materials
+- Inclusive assessment strategies
+- Collaboration with special educators
+- Parent and caregiver involvement
+
+${JSON_PROMPT}
+`
 
 
 

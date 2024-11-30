@@ -9,6 +9,39 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      "differently-abled": {
+        Row: {
+          content: Json
+          created_at: string
+          grade: number
+          id: number
+          student_description: string | null
+          topic: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          content: Json
+          created_at?: string
+          grade: number
+          id?: number
+          student_description?: string | null
+          topic: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          grade?: number
+          id?: number
+          student_description?: string | null
+          topic?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       "grade-papers": {
         Row: {
           content: Json
@@ -149,6 +182,33 @@ export type Database = {
           created_at?: string
           id?: number
           learningObjective?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      rubrics: {
+        Row: {
+          content: Json
+          created_at: string
+          grade: number
+          id: number
+          topic: string
+          user_id: string
+        }
+        Insert: {
+          content: Json
+          created_at?: string
+          grade: number
+          id?: number
+          topic: string
+          user_id: string
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          grade?: number
+          id?: number
+          topic?: string
           user_id?: string
         }
         Relationships: []

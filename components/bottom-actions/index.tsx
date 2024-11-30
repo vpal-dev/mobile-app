@@ -1,12 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { ButtonRaw } from '../ui/button';
+import { Separator } from '../ui/separator';
 
 export const BottomActions = () => {
 
   return (
     <>
-      <View style={styles.seperator} />
+      <Separator />
 
       <ButtonRaw style={styles.button}>
         <Text style={styles.comingSoon}>coming soon</Text>
@@ -19,13 +20,6 @@ export const BottomActions = () => {
 }
 
 const styles = StyleSheet.create({
-  seperator: {
-    marginVertical: 20,
-    marginTop: 50,
-    width: '100%',
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(0,0,0,0.2)'
-  },
   button: {
     backgroundColor: 'transparent',
     flexDirection: 'column',

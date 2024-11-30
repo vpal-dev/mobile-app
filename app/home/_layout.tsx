@@ -16,36 +16,47 @@ export default function HomeLayout() {
         }}
       />
 
+      {
+        [
+          { name: 'Create Lesson', href: 'lesson-plans/create/index' },
+          { name: 'All Lessons', href: 'lesson-plans/index' },
+          { name: 'Get Lesson', href: 'lesson-plans/[id]/index' },
 
-      {/* Generate QA Routes */}
-      <Stack.Screen
-        name="generate-qa/index"
-        options={{
-          title: 'Generate QA',
-        }}
-      />
+          { name: 'Generate Assignment', href: 'generate-qa/create' },
+          { name: 'All Generated Assignment', href: 'generate-qa/index' },
+          { name: 'Generated Assignment', href: 'generate-qa/[id]' },
 
-      {/* Lesson Plans Routes */}
-      <Stack.Screen
-        name="lesson-plans/index"
-        options={{
-          title: 'Lesson Plans',
-        }}
-      />
+          { name: 'Create Relevant Lessons', href: 'relevant-lessons/create' },
+          { name: 'All Relevant Lessons', href: 'relevant-lessons/index' },
+          { name: 'Get Relevant Lessons', href: 'relevant-lessons/[id]' },
 
-      <Stack.Screen
-        name="lesson-plans/[id]/index"
-        options={{
-          title: 'Lesson Plan Details',
-        }}
-      />
+          { name: 'Grade Papers', href: 'grade-papers/create' },
+          { name: 'All Graded Papers', href: 'grade-papers/index' },
+          { name: 'Get Graded Paper', href: 'grade-papers/[id]' },
 
-      <Stack.Screen
-        name="lesson-plans/create/index"
-        options={{
-          title: 'Lesson Create',
-        }}
-      />
+          { name: "Level Assignments", href: 'leveller/create' },
+          { name: "All Levelled Assignments", href: 'leveller/index' },
+          { name: "Get Levelled Assignment", href: 'leveller/[id]' },
+
+          { name: "Create Rubrics", href: 'rubrics/create' },
+          { name: "All Rubrics", href: 'rubrics/index' },
+          { name: "Get Rubric", href: 'rubrics/[id]' },
+
+          { name: 'Create Differently Abled', href: 'differently-abled/create' },
+          { name: 'All Differently Abled', href: 'differently-abled/index' },
+          { name: 'Get Differently Abled', href: 'differently-abled/[id]' },
+        ].map((item) => {
+          return (
+            <Stack.Screen
+              key={item.name}
+              name={item.href}
+              options={{
+                title: item.name,
+              }}
+            />
+          )
+        })
+      }
     </Stack>
   );
 }

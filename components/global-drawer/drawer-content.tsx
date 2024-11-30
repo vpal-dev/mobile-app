@@ -26,7 +26,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
   }
 
   const userName = useMemo(() => {
-    const name = data?.user?.user_metadata?.full_name
+    const name = data?.user?.user_metadata?.name
     const phone = "+" + data?.user?.phone
 
     if (name) {

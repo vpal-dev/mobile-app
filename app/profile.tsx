@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ScreenBanner } from '@/components/screen-banner';
 import { SubmitButton } from '@/components/ui/button';
 import { FormControl, FormField, FormFieldMessage, FormInput, FormLabel, FormSelect } from '@/components/ui/form';
@@ -16,6 +16,7 @@ export default function Profile() {
     control,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -25,6 +26,15 @@ export default function Profile() {
       state_board: metadata?.state_board || '',
     },
   });
+
+  useEffect(() => {
+    if (metadata) {
+      setValue('name', metadata.name);
+      setValue('subject', metadata.subject);
+      setValue('board', metadata.board);
+      setValue('state_board', metadata.state_board);
+    }
+  }, [metadata]);
 
   const router = useRouter();
 

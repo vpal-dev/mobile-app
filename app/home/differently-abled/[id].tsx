@@ -1,18 +1,17 @@
 import { BackButton } from '@/components/back-button/back-button';
 import { BottomActions } from '@/components/bottom-actions';
 import { SimpleCard } from '@/components/card/card';
-import { Markdown } from '@/components/markdown';
-import { ShareMarkdownMenu } from '@/components/share-markdown-menu';
-import { Button, } from '@/components/ui/button';
-import { useGetLessonPlan } from '@/services/lesson-plans';
+import { Button } from '@/components/ui/button';
+import { useGetDifferentlyAbledLesson } from '@/services/differently-abled';
 import { Link, useLocalSearchParams } from 'expo-router';
 import { useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import Markdown from 'react-native-markdown-display';
 
-export default function LessonID() {
+export default function SingleIDScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const { data: _data, isLoading } = useGetLessonPlan(parseInt(id))
+  const { data: _data, isLoading } = useGetDifferentlyAbledLesson(parseInt(id))
 
   const data = useMemo(() => {
     const { title = "", shortDescription = "", content = "" } = JSON.parse(_data?.content || "{}")
@@ -33,15 +32,13 @@ export default function LessonID() {
       <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
         <BackButton />
 
-        <Link asChild href="/home/lesson-plans/create">
+        <Link asChild href="/home/differently-abled">
           <Button text='New' />
         </Link>
       </View>
 
       <SimpleCard title={data.title} description={data.shortDescription} />
       <Markdown>{data.content}</Markdown>
-
-      <ShareMarkdownMenu markdown={data.content} />
       <BottomActions />
     </ScrollView>
   );

@@ -1,5 +1,5 @@
 import { DrawerHeaderProps } from "@react-navigation/drawer"
-import { Platform, StyleSheet, Text } from "react-native"
+import { Platform, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Button } from "../ui/button"
 import { ChevronsRightIcon } from "lucide-react-native"
@@ -14,6 +14,13 @@ export const DrawerHeader = (props: DrawerHeaderProps) => {
         onPress={() => props.navigation.openDrawer()}
       />
       <Text style={headerStyles.logoText}>vpal</Text>
+
+      <View style={{ marginLeft: 'auto' }}>
+        <Button
+          text="Home"
+          onPress={() => props.navigation.navigate('home')}
+        />
+      </View>
     </SafeAreaView>
   )
 }
