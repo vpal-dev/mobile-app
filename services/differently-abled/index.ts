@@ -14,7 +14,6 @@ export const useGenerateDifferentlyAbledLesson = () => {
 
       const { data: sData, error: _ } = await supabase.from('differently-abled').insert({
         type: data.type,
-        grade: data.grade,
         topic: data.topic,
 
         content: String(res?.content[0]?.text),

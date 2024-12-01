@@ -15,7 +15,7 @@ export const DrawerHeader = (props: DrawerHeaderProps) => {
       />
       <Text style={headerStyles.logoText}>vpal</Text>
 
-      <View style={{ marginLeft: 'auto' }}>
+      <View style={{ marginLeft: 'auto', display: 'none' }}>
         <Button
           text="Home"
           onPress={() => props.navigation.navigate('home')}

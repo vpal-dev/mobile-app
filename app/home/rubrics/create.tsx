@@ -7,9 +7,9 @@ import { PencilRulerIcon } from 'lucide-react-native';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { FEATURES_DATA } from '@/constants/features-data';
-import { useGenerateRelevantLesson } from '@/services/relevant-lessons';
 import { ControlledGradeInput, ControlledTextInput } from '@/components/common-inputs';
 import { AuthButtonWrapper } from '@/components/auth-btn-wrapper';
+import { useGenerateRubrics } from '@/services/rubrics';
 
 export default function CreateScreen() {
   const {
@@ -24,7 +24,7 @@ export default function CreateScreen() {
   })
 
   const router = useRouter()
-  const { mutateAsync, isPending } = useGenerateRelevantLesson()
+  const { mutateAsync, isPending } = useGenerateRubrics()
 
   const onSubmit = async (data: any) => {
     const id = await mutateAsync(data)

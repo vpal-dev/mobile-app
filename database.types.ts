@@ -13,7 +13,6 @@ export type Database = {
         Row: {
           content: Json
           created_at: string
-          grade: number
           id: number
           student_description: string | null
           topic: string
@@ -23,7 +22,6 @@ export type Database = {
         Insert: {
           content: Json
           created_at?: string
-          grade: number
           id?: number
           student_description?: string | null
           topic: string
@@ -33,7 +31,6 @@ export type Database = {
         Update: {
           content?: Json
           created_at?: string
-          grade?: number
           id?: number
           student_description?: string | null
           topic?: string
