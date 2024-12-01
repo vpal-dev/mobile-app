@@ -27,7 +27,7 @@ export default function IndexScreen() {
           const { title, shortDescription } = JSON.parse(d.content?.toString());
 
           return (
-            <Link href={`/home/relevant-lessons/${d.id}`} key={d.id}>
+            <Link href={`/home/differently-abled/${d.id}`} key={d.id}>
               <Container style={{ display: 'flex', flexDirection: 'column', gap: 6, width: '100%' }}>
                 <Text style={{ fontSize: 16, fontWeight: '600' }}>{title}</Text>
                 <Text style={{ fontSize: 14, color: '#5A5A5A' }}>{shortDescription}</Text>

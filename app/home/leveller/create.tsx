@@ -39,7 +39,7 @@ export default function CreateScreen() {
     }
 
     const id = await mutateAsync({ grade, photos, description })
-    router.navigate(`/home/grade-papers/${id}`)
+    router.navigate(`/home/leveller/${id}`)
   }
 
   return (

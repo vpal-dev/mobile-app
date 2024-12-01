@@ -27,6 +27,8 @@ export default function SingleIDScreen() {
     return <Text>Loading...</Text>
   }
 
+  console.log(data)
+
   return (
     <ScrollView style={{ height: '100%' }} contentContainerStyle={styles.container}>
       <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
